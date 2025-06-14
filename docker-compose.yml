@@ -1,0 +1,11 @@
+services:
+  youtube-status-core:
+    build:
+      context: .
+      dockerfile: ./build-env
+      restart: always
+      volumes:
+        - type: bind
+          source: ./
+          target: /tmp/
+          read_only: false
