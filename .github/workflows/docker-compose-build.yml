@@ -30,8 +30,8 @@ jobs:
     - name: Test run
       run: docker compose up -d
 
-	- name: Wait 5s
-	  run: sleep 5
+    - name: Wait 5s
+      run: sleep 5
 
     - name: Print logs
       run: docker compose logs
