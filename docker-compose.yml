@@ -2,10 +2,10 @@ services:
   youtube-status-core:
     build:
       context: .
-      dockerfile: ./build-env
-      restart: always
-      volumes:
-        - type: bind
-          source: ./
-          target: /tmp/
-          read_only: false
+      dockerfile: ./build-env/Dockerfile
+    restart: always
+    volumes:
+      - type: bind
+        source: ./
+        target: /tmp/
+        read_only: true
