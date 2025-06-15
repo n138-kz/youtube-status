@@ -1,7 +1,7 @@
 FROM python:3.10
 
+COPY .env /tmp/
 COPY requirements.txt /tmp/
-RUN if [ -f requirements.txt ]; then pip install -r /tmp/requirements.txt; fi
+RUN pip install -r /tmp/requirements.txt
 
-RUN set -x && mkdir /tmp/.secret
-COPY .secret/config.json /tmp/.secret/
+ENTRYPOINT ["/usr/bin/python3", "/tmp/youtube-status-bot.py"]
