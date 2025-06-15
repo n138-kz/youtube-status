@@ -48,6 +48,27 @@ YOUTUBE_ACCESS_TOKEN=os.environ['YOUTUBE_ACCESS_TOKEN']
 client = None
 
 @client.event
+async def on_message(message):
+    # 変数初期化
+    title=None
+    descr=None
+    color=0x000000
+    text=None
+
+    # 送信者がbotである場合は弾く
+    if message.author.bot:
+        logger.warning('message author is BOT')
+        return
+    # テキストチャンネルのみ処理
+    if message.channel.type != discord.ChannelType.text:
+        logger.warning('channel type is not text channel')
+        return
+    # Youtube Linkのみ処理
+    if not(message.content.startswith('https://')):
+        logger.warning('unsupported link')
+        return
+
+@client.event
 async def on_ready():
     logger.info('Connect')
     await client.change_presence(
