@@ -35,7 +35,6 @@ logging_conf.dictConfig(logger_config)
 logger = getLogger(__name__)
 logger.info('Init')
 import os
-import sys
 from dotenv import load_dotenv
 
 load_dotenv()
