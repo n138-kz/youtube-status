@@ -42,8 +42,9 @@ import discord
 from dotenv import load_dotenv
 
 load_dotenv()
-YOUTUBE_ACCESS_TOKEN=os.environ['YOUTUBE_ACCESS_TOKEN']
 TOKEN_DISCORD=os.environ['DISCORD_BOT_TOKEN']
+TOKEN_YOUTUBE=os.environ['YOUTUBE_ACCESS_TOKEN']
+
 
 client = None
 
