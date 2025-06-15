@@ -42,8 +42,8 @@ import discord
 from dotenv import load_dotenv
 
 load_dotenv()
-DISCORD_BOT_TOKEN=os.environ['DISCORD_BOT_TOKEN']
 YOUTUBE_ACCESS_TOKEN=os.environ['YOUTUBE_ACCESS_TOKEN']
+TOKEN_DISCORD=os.environ['DISCORD_BOT_TOKEN']
 
 client = None
 
@@ -83,7 +83,7 @@ def main():
     intents.reactions = True
     client = discord.Client(intents=intents)
 
-    client.run(DISCORD_BOT_TOKEN)
+    client.run(TOKEN_DISCORD)
 
 if __name__ == '__main__':
     main()
