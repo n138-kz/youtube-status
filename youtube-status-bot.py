@@ -34,6 +34,9 @@ logger_config['root']['level'] = 'INFO'
 logging_conf.dictConfig(logger_config)
 logger = getLogger(__name__)
 logger.info('Init')
+
+LOCALE = 'ja' # 言語 Language
+
 import os
 from dotenv import load_dotenv
 
