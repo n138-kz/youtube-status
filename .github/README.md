@@ -19,6 +19,10 @@
 ## Refs
 
 - [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)youtube-status](https://github.com/n138-kz/youtube-status/)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)youtube_bot](https://github.com/n138-kz/youtube_bot/)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://discord.com)Developer Console](https://discord.com/developers/applications)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://discord.com)Discord公式リファレンス](https://discord.com/developers/docs/topics/oauth2)
+- [![](https://www.google.com/s2/favicons?size=64&domain=https://discord.com)discord.py APIリファレンス](https://discordpy.readthedocs.io/ja/latest/api.html)
 
 ## License
 
