@@ -24,6 +24,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Create test .env
+      run: touch .env
+
     - name: Build the Image
       run: docker compose build --no-cache
 
