@@ -39,12 +39,33 @@ LOCALE = 'ja' # 言語 Language
 
 import os
 import discord
+from apiclient import discovery
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN_DISCORD=os.environ['TOKEN_DISCORD']
 TOKEN_YOUTUBE=os.environ['TOKEN_YOUTUBE']
 
+def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
+    """
+    * @return :Dictionary
+    """
+    youtube = discovery.build(
+        api_service_name,
+        api_version,
+        developerKey=TOKEN_YOUTUBE
+    )
+
+    response = youtube.videos().list(
+        part='snippet,statistics',
+        id='{},'.format(video_id)
+    ).execute()
+
+    snippetInfo = response["items"][0]["snippet"] # snippet
+    video_title = snippetInfo['title'] # 動画タイトル
+    channel_name = snippetInfo['channelTitle'] # チャンネル名
+
+    return response
 
 client = None
 
