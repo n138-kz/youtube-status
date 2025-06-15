@@ -45,3 +45,16 @@ load_dotenv()
 DISCORD_BOT_TOKEN=os.environ['DISCORD_BOT_TOKEN']
 YOUTUBE_ACCESS_TOKEN=os.environ['YOUTUBE_ACCESS_TOKEN']
 
+client = None
+
+# botを起動
+def main():
+    intents=discord.Intents.default()
+    intents.message_content = True
+    intents.reactions = True
+    client = discord.Client(intents=intents)
+
+    client.run(DISCORD_BOT_TOKEN)
+
+if __name__ == '__main__':
+    main()
