@@ -24,6 +24,10 @@
 - [![](https://www.google.com/s2/favicons?size=64&domain=https://discord.com)Discord公式リファレンス](https://discord.com/developers/docs/topics/oauth2)
 - [![](https://www.google.com/s2/favicons?size=64&domain=https://discord.com)discord.py APIリファレンス](https://discordpy.readthedocs.io/ja/latest/api.html)
 
+## Discord Application
+
+[Invite URL](https://discord.com/oauth2/authorize?client_id=1383436838404100197)
+
 ## License
 
 [Copyright (c) 2025 Yuu Komiya (n138), Under MIT License](LICENSE)  
