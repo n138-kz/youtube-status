@@ -47,6 +47,14 @@ YOUTUBE_ACCESS_TOKEN=os.environ['YOUTUBE_ACCESS_TOKEN']
 
 client = None
 
+@client.event
+async def on_ready():
+    logger.info('Connect')
+    await client.change_presence(
+        status=discord.Status.online,
+        activity=discord.CustomActivity(name='Ready...')
+    )
+
 # botを起動
 def main():
     intents=discord.Intents.default()
