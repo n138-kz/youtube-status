@@ -199,6 +199,26 @@ async def on_message(message):
         timestamp=datetime.datetime.now(datetime.timezone.utc),
     )
     embed.set_image(url=image)
+    embed.add_field(
+        inline=True,
+        name=':speech_balloon:',
+        value=youtube_video['statistics']['commentCount'],
+    )
+    embed.add_field(
+        inline=True,
+        name=':thumbsup:',
+        value=youtube_video['statistics']['likeCount'],
+    )
+    embed.add_field(
+        inline=True,
+        name=':eyes:',
+        value=youtube_video['statistics']['viewCount'],
+    )
+    embed.add_field(
+        inline=True,
+        name=':timer:',
+        value=youtube_video['snippet']['publishedAt'],
+    )
     logger.debug( await message.reply(embed=embed) )
 
 # botを起動
