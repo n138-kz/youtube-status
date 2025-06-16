@@ -230,7 +230,7 @@ async def on_message(message):
         value=format(int(youtube_video['statistics']['viewCount']), ','),
     )
     embed.add_field(
-        inline=True,
+        inline=False,
         name=':timer:',
         value=youtube_video['snippet']['publishedAt'],
     )
