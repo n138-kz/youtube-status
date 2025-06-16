@@ -105,7 +105,6 @@ client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
-    logger.info('Ready')
     logger.info('BotId   : {0}'.format(client.user.id))
     logger.info('BotName : {0}'.format(client.user.name))
 
@@ -114,6 +113,9 @@ async def on_ready():
         activity=discord.CustomActivity(name=client.user.name)
     )
     logger.info('Change presence to {}'.format(discord.Status.online))
+
+    # 起動完了
+    logger.info('Ready')
 
 @client.event
 async def on_message(message):
