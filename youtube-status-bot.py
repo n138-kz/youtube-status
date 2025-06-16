@@ -141,6 +141,9 @@ async def on_message(message):
         logger.warning('Unsupported link')
         return
 
+    # メッセージ受取り
+    logger.info(message.content)
+
 # botを起動
 def main():
     logger.info('Connecting to Discord API')
