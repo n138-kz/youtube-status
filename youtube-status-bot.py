@@ -126,11 +126,4 @@ async def on_message(message):
         logger.warning('unsupported link')
         return
 
-@client.event
-async def on_ready():
-    logger.info('Connect')
-    await client.change_presence(
-        status=discord.Status.online,
-        activity=discord.CustomActivity(name='Ready...')
-    )
 
