@@ -188,6 +188,12 @@ async def on_message(message):
     del youtube_video['snippet']['localized']
     logger.debug(youtube_video)
     logger.debug(json.dumps(youtube_video, sort_keys=True))
+    title = '{0} - {1}'.format(item_id, 'YouTube')
+    descr = text
+    color = color_custom['success']
+    url   = message.content
+    image = youtube_video['snippet']['thumbnails']['default']['url']
+
 
 # botを起動
 def main():
