@@ -204,6 +204,7 @@ async def on_message(message):
     url   = message.content
     image = youtube_video['snippet']['thumbnails']['default']['url']
 
+    # Discord.Embed
     embed = discord.Embed(
         title=title, description=text, color=color, url=url,
         timestamp=datetime.datetime.now(datetime.timezone.utc),
