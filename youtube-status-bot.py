@@ -194,6 +194,12 @@ async def on_message(message):
     url   = message.content
     image = youtube_video['snippet']['thumbnails']['default']['url']
 
+    embed = discord.Embed(
+        title=title, description=text, color=color, url=url,
+        timestamp=datetime.datetime.now(datetime.timezone.utc),
+    )
+    embed.set_image(url=image)
+    logger.debug( await message.reply(embed=embed) )
 
 # botを起動
 def main():
