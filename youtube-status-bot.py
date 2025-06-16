@@ -69,6 +69,18 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
 
 client = None
 
+# botを起動
+def main():
+    intents=discord.Intents.default()
+    intents.message_content = True
+    intents.reactions = True
+    client = discord.Client(intents=intents)
+
+    client.run(TOKEN_DISCORD)
+
+if __name__ == '__main__':
+    main()
+
 @client.event
 async def on_message(message):
     # 変数初期化
@@ -98,14 +110,3 @@ async def on_ready():
         activity=discord.CustomActivity(name='Ready...')
     )
 
-# botを起動
-def main():
-    intents=discord.Intents.default()
-    intents.message_content = True
-    intents.reactions = True
-    client = discord.Client(intents=intents)
-
-    client.run(TOKEN_DISCORD)
-
-if __name__ == '__main__':
-    main()
