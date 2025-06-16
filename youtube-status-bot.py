@@ -40,6 +40,7 @@ LOCALE = 'ja' # 言語 Language
 logger.info('Locale set to {}'.format(LOCALE))
 
 import os,sys
+import traceback
 import discord
 from apiclient import discovery
 from apiclient import errors as googleapiclient_errors
