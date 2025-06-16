@@ -55,9 +55,12 @@ if len(TOKEN_DISCORD) > 0:
 else:
     raise ValueError('Require the token.discord')
 if len(TOKEN_YOUTUBE) > 0:
-	logger.info('Load & set the token YOUTUBE')
+    logger.info('Load & set the token YOUTUBE {0}..{1}'.format(
+        hashlib.sha1(TOKEN_YOUTUBE.encode()).hexdigest()[0:7],
+        hashlib.sha1(TOKEN_YOUTUBE.encode()).hexdigest()[-7:],
+    ))
 else:
-	raise ValueError('Require the token.youtube')
+    raise ValueError('Require the token.youtube')
 
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
