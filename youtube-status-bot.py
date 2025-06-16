@@ -232,7 +232,9 @@ async def on_message(message):
     embed.add_field(
         inline=False,
         name=':timer:',
-        value=youtube_video['snippet']['publishedAt'],
+        value='<t:{0}:f>'.format(
+            math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp())
+        ),
     )
     logger.debug( await message.reply(embed=embed) )
 
