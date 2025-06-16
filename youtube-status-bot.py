@@ -153,7 +153,7 @@ async def on_message(message):
         logger.warning('Unsupported link')
         return
 
-    # メッセージ受取り
+    # 変数初期化
     item_id = ''
     logger.info(message.content)
 
