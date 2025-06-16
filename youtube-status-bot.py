@@ -159,11 +159,11 @@ async def on_message(message):
     # 動画IDの抽出
     if False:
     elif message.content.startswith('https://youtu.be/'):
-    	item_id = message.content.replace('https://youtu.be/', '')
-    	item_id = re.sub('\?.*', '', item_id)
+        item_id = message.content.replace('https://youtu.be/', '')
+        item_id = re.sub('\?.*', '', item_id)
     elif message.content.startswith('https://www.youtube.com/watch?v='):
-    	item_id = message.content.replace('https://www.youtube.com/watch?v=', '')
-    	item_id = re.sub('\&.*', '', item_id)
+        item_id = message.content.replace('https://www.youtube.com/watch?v=', '')
+        item_id = re.sub('\&.*', '', item_id)
 
     # 動画IDの抽出
     logger.info(item_id)
