@@ -103,7 +103,17 @@ intents.message_content = True
 intents.reactions = True
 client = discord.Client(intents=intents)
 
+@client.event
+async def on_ready():
+    logger.info('Ready')
+    logger.info('BotId   : {0}'.format(client.user.id))
+    logger.info('BotName : {0}'.format(client.user.name))
 
+    await client.change_presence(
+        status=discord.Status.online,
+        activity=discord.CustomActivity(name=client.user.name)
+    )
+    logger.info('Change presence to {}'.format(discord.Status.online))
 
 @client.event
 async def on_message(message):
