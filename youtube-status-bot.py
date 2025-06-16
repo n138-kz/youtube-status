@@ -155,8 +155,10 @@ async def on_message(message):
         logger.warning('Channel type is not text channel')
         return
     # Youtube Linkのみ処理
-    if not(message.content.startswith('https://youtu.be/') or message.content.startswith('https://www.youtube.com/watch?v=')):
-        logger.warning('Unsupported link')
+    if not(message.content.startswith('https://youtu.be/') or message.content.startswith('https://www.youtube.com/watch?v=') or message.content.startswith('https://youtube.com/shorts/')):
+        logger.warning('Unsupported link: {0}'.format(
+            message.content
+        ))
         return
 
     # 変数初期化
@@ -182,6 +184,12 @@ async def on_message(message):
         item_id = message.content.replace('https://www.youtube.com/watch?v=', '')
         try:
             item_id = re.sub('&.*', '', item_id)
+        except re.PatternError:
+            logger.error(traceback.format_exc())
+    elif message.content.startswith('https://youtube.com/shorts/'):
+        item_id = message.content.replace('https://youtube.com/shorts/', '')
+        try:
+            item_id = re.sub(r'\?.*', '', item_id)
         except re.PatternError:
             logger.error(traceback.format_exc())
 
