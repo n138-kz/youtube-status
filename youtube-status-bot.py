@@ -209,6 +209,10 @@ async def on_message(message):
         title=title, description=text, color=color, url=url,
         timestamp=datetime.datetime.now(datetime.timezone.utc),
     )
+    try:
+        embed.timestamp=datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt'])
+    except discord.errors.PrivilegedIntentsRequired:
+        logger.error(traceback.format_exc())
     embed.set_image(url=image)
     embed.add_field(
         inline=True,
