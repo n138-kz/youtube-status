@@ -123,13 +123,16 @@ async def on_message(message):
     color=0x000000
     text=None
 
+    # メッセージ受取り
+    logger.info('on_message')
+
     # 送信者がbotである場合は弾く
     if message.author.bot:
-        logger.warning('message author is BOT')
+        logger.warning('Message author is BOT')
         return
     # テキストチャンネルのみ処理
     if message.channel.type != discord.ChannelType.text:
-        logger.warning('channel type is not text channel')
+        logger.warning('Channel type is not text channel')
         return
     # Youtube Linkのみ処理
     if not(message.content.startswith('https://')):
