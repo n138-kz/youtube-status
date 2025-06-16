@@ -9,3 +9,7 @@ services:
         source: ./
         target: /tmp/
         read_only: true
+      - type: bind
+        source: ./log/
+        target: /log/custom/
+        read_only: false
