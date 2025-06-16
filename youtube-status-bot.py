@@ -152,8 +152,19 @@ async def on_message(message):
         return
 
     # メッセージ受取り
+    item_id = ''
     logger.info(message.content)
 
+    # 動画IDの抽出
+    if False:
+    elif message.content.startswith('https://youtu.be/'):
+    	item_id = message.content.replace('https://youtu.be/', '')
+    elif message.content.startswith('https://www.youtube.com/watch?v='):
+    	item_id = message.content.replace('https://www.youtube.com/watch?v=', '')
+
+    # 動画IDの抽出
+    logger.info(item_id)
+    
 # botを起動
 def main():
     logger.info('Connecting to Discord API')
