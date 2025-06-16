@@ -195,6 +195,7 @@ async def on_message(message):
     del youtube_video['snippet']['localized']
     logger.debug(youtube_video)
     logger.debug(json.dumps(youtube_video, sort_keys=True))
+    logger.debug(math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp()))
     
     title = '{0} - {1}'.format(item_id, 'YouTube')
     descr = text
