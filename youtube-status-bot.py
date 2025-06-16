@@ -50,6 +50,7 @@ LOCALE = 'ja' # 言語 Language
 logger.info('Locale set to {}'.format(LOCALE))
 
 import os,sys
+import re
 import hashlib
 import traceback
 import discord
@@ -159,8 +160,10 @@ async def on_message(message):
     if False:
     elif message.content.startswith('https://youtu.be/'):
     	item_id = message.content.replace('https://youtu.be/', '')
+    	item_id = re.sub('\?.*', '', item_id)
     elif message.content.startswith('https://www.youtube.com/watch?v='):
     	item_id = message.content.replace('https://www.youtube.com/watch?v=', '')
+    	item_id = re.sub('\&.*', '', item_id)
 
     # 動画IDの抽出
     logger.info(item_id)
