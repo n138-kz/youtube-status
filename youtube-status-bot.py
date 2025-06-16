@@ -96,15 +96,13 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
 
     return response
 
-client = None
+intents = discord.Intents.default()
+intents.message_content = True
+intents.reactions = True
+client = discord.Client(intents=intents)
 
 # botを起動
 def main():
-    intents=discord.Intents.default()
-    intents.message_content = True
-    intents.reactions = True
-    client = discord.Client(intents=intents)
-
     client.run(TOKEN_DISCORD)
 
 if __name__ == '__main__':
