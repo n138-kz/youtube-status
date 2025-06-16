@@ -197,6 +197,7 @@ async def on_message(message):
     logger.debug(json.dumps(youtube_video, sort_keys=True))
     logger.debug(math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp()))
     
+    # POST DATA
     title = '{0} - {1}'.format(item_id, 'YouTube')
     descr = text
     color = color_custom['success']
