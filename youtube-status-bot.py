@@ -39,7 +39,7 @@ logger.info('Init')
 LOCALE = 'ja' # 言語 Language
 logger.info('Locale set to {}'.format(LOCALE))
 
-import os
+import os,sys
 import discord
 from apiclient import discovery
 from dotenv import load_dotenv
@@ -87,6 +87,7 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     except googleapiclient_errors.HttpError:
         logger.error(traceback.format_exc())
         logger.info('https://console.cloud.google.com/apis/credentials')
+        sys.exit(1)
 
     snippetInfo = response["items"][0]["snippet"] # snippet
     video_title = snippetInfo['title'] # 動画タイトル
