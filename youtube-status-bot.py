@@ -229,13 +229,6 @@ async def on_message(message):
         name=':eyes:',
         value=format(int(youtube_video['statistics']['viewCount']), ','),
     )
-    embed.add_field(
-        inline=False,
-        name=':timer:',
-        value='<t:{0}:f>'.format(
-            math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp())
-        ),
-    )
     logger.debug( await message.reply(embed=embed) )
 
 # botを起動
