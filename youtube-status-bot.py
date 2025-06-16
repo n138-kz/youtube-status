@@ -168,7 +168,11 @@ async def on_message(message):
 
     # 動画IDの抽出
     logger.info(item_id)
-    
+
+    # statics取得
+    youtube_video = getYoutubeItems(video_id=item_id)
+    logger.info(youtube_video)
+
 # botを起動
 def main():
     logger.info('Connecting to Discord API')
