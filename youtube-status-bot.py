@@ -5,6 +5,7 @@ logger_config['disable_existing_loggers'] = False
 logger_config['formatters'] = {}
 logger_config['formatters']['simple'] = {}
 logger_config['formatters']['simple']['format'] = '%(asctime)s %(name)s:%(lineno)s %(funcName)s [%(levelname)s]: %(message)s'
+logger_config['formatters']['simple']['format'] = '%(asctime)s [%(levelname)s]: %(message)s'
 logger_config['handlers'] = {}
 logger_config['handlers']['consoleHandler'] = {}
 logger_config['handlers']['consoleHandler']['class'] = 'logging.StreamHandler'
