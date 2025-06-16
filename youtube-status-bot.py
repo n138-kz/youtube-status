@@ -156,6 +156,12 @@ async def on_message(message):
     # 変数初期化
     item_id = ''
 
+    # メッセージ受取り
+    logger.info('on_message author: {0}({1})'.format(
+        message.author.name,
+        message.author.id,
+        message.content,
+    ))
 
     # 動画IDの抽出
     if False:
