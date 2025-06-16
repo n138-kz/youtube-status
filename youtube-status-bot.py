@@ -183,7 +183,11 @@ async def on_message(message):
 
     # statics取得
     youtube_video = getYoutubeItems(video_id=item_id)
-    logger.info(youtube_video)
+    youtube_video = youtube_video['items'][0]
+    del youtube_video['snippet']['description']
+    del youtube_video['snippet']['localized']
+    logger.debug(youtube_video)
+    logger.debug(json.dumps(youtube_video, sort_keys=True))
 
 # botを起動
 def main():
