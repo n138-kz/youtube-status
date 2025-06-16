@@ -217,17 +217,17 @@ async def on_message(message):
     embed.add_field(
         inline=True,
         name=':speech_balloon:',
-        value=youtube_video['statistics']['commentCount'],
+        value=format(int(youtube_video['statistics']['commentCount']), ','),
     )
     embed.add_field(
         inline=True,
         name=':thumbsup:',
-        value=youtube_video['statistics']['likeCount'],
+        value=format(int(youtube_video['statistics']['likeCount']), ','),
     )
     embed.add_field(
         inline=True,
         name=':eyes:',
-        value=youtube_video['statistics']['viewCount'],
+        value=format(int(youtube_video['statistics']['viewCount']), ','),
     )
     embed.add_field(
         inline=True,
