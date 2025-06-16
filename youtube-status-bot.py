@@ -137,6 +137,9 @@ async def on_message(message):
     color=0x000000
     text=None
 
+    # 送信者が自分自身である場合は弾く
+    if message.author.id == client.user.id:
+        return
     # 送信者がbotである場合は弾く
     if message.author.bot:
         logger.warning('Message author is BOT')
