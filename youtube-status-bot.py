@@ -103,12 +103,7 @@ intents.message_content = True
 intents.reactions = True
 client = discord.Client(intents=intents)
 
-# botを起動
-def main():
-    client.run(TOKEN_DISCORD)
 
-if __name__ == '__main__':
-    main()
 
 @client.event
 async def on_message(message):
