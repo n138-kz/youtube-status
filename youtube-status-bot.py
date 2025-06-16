@@ -48,9 +48,12 @@ load_dotenv()
 TOKEN_DISCORD=os.environ['TOKEN_DISCORD']
 TOKEN_YOUTUBE=os.environ['TOKEN_YOUTUBE']
 if len(TOKEN_DISCORD) > 0:
-	logger.info('Load & set the token DISCORD')
+    logger.info('Load & set the token DISCORD {0}..{1}'.format(
+        hashlib.sha1(TOKEN_DISCORD.encode()).hexdigest()[0:7],
+        hashlib.sha1(TOKEN_DISCORD.encode()).hexdigest()[-7:],
+    ))
 else:
-	raise ValueError('Require the token.discord')
+    raise ValueError('Require the token.discord')
 if len(TOKEN_YOUTUBE) > 0:
 	logger.info('Load & set the token YOUTUBE')
 else:
