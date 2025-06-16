@@ -135,6 +135,11 @@ async def on_message(message):
     title=None
     descr=None
     color=0x000000
+    color_custom={
+        'success': 0x00FF00,
+        'failure': 0xFF0000,
+    }
+    url=None
     text=None
 
     # 送信者が自分自身である場合は弾く
