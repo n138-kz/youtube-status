@@ -126,4 +126,15 @@ async def on_message(message):
         logger.warning('unsupported link')
         return
 
+# botを起動
+def main():
+    logger.info('Connecting to Discord API')
+    try:
+        client.run(TOKEN_DISCORD)
+    except discord.errors.PrivilegedIntentsRequired:
+        logger.error(traceback.format_exc())
+        sys.exit(1)
 
+logger.info(__name__)
+if __name__ == '__main__':
+    main()
