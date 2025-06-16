@@ -79,10 +79,14 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
         developerKey=TOKEN_YOUTUBE
     )
 
-    response = youtube.videos().list(
-        part='snippet,statistics',
-        id='{},'.format(video_id)
-    ).execute()
+    try:
+        response = youtube.videos().list(
+            part='snippet,statistics',
+            id='{},'.format(video_id)
+        ).execute()
+    except googleapiclient_errors.HttpError:
+        logger.error(traceback.format_exc())
+        logger.info('https://console.cloud.google.com/apis/credentials')
 
     snippetInfo = response["items"][0]["snippet"] # snippet
     video_title = snippetInfo['title'] # 動画タイトル
