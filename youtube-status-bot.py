@@ -47,6 +47,14 @@ from dotenv import load_dotenv
 load_dotenv()
 TOKEN_DISCORD=os.environ['TOKEN_DISCORD']
 TOKEN_YOUTUBE=os.environ['TOKEN_YOUTUBE']
+if len(TOKEN_DISCORD) > 0:
+	logger.info('Load & set the token DISCORD')
+else:
+	raise ValueError('Require the token.discord')
+if len(TOKEN_YOUTUBE) > 0:
+	logger.info('Load & set the token YOUTUBE')
+else:
+	raise ValueError('Require the token.youtube')
 
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
