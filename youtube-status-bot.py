@@ -66,6 +66,13 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
     * @return :Dictionary
     """
+    logger.info('Call getYoutubeItems video_id={0} api_service_name={1} api_version={2} developer_key={3}'.format(
+        video_id,
+        api_service_name,
+        api_version,
+        TOKEN_YOUTUBE,
+    ))
+
     youtube = discovery.build(
         api_service_name,
         api_version,
