@@ -42,6 +42,7 @@ logger.info('Locale set to {}'.format(LOCALE))
 import os,sys
 import discord
 from apiclient import discovery
+from apiclient import errors as googleapiclient_errors
 from dotenv import load_dotenv
 
 load_dotenv()
