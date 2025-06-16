@@ -155,7 +155,7 @@ async def on_message(message):
 
     # 変数初期化
     item_id = ''
-    logger.info(message.content)
+
 
     # 動画IDの抽出
     if False:
