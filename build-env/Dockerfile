@@ -1,4 +1,5 @@
 FROM python:3.10
+WORKDIR /tmp
 
 COPY .env /tmp/
 COPY requirements.txt /tmp/
