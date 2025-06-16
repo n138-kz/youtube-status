@@ -37,6 +37,7 @@ logger = getLogger(__name__)
 logger.info('Init')
 
 LOCALE = 'ja' # 言語 Language
+logger.info('Locale set to {}'.format(LOCALE))
 
 import os
 import discord
