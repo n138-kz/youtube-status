@@ -86,7 +86,6 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
         video_id,
         api_service_name,
         api_version,
-        TOKEN_YOUTUBE,
     ))
 
     youtube = discovery.build(
