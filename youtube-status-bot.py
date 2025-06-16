@@ -135,7 +135,7 @@ async def on_message(message):
         logger.warning('Channel type is not text channel')
         return
     # Youtube Linkのみ処理
-    if not(message.content.startswith('https://youtu.be/') || message.content.startswith('https://www.youtube.com/watch?v=')):
+    if not(message.content.startswith('https://youtu.be/') or message.content.startswith('https://www.youtube.com/watch?v=')):
         logger.warning('Unsupported link')
         return
 
