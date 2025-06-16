@@ -179,7 +179,7 @@ async def on_message(message):
         item_id = re.sub('\&.*', '', item_id)
 
     # 動画IDの抽出
-    logger.info(item_id)
+    logger.debug('item_id: {0}'.format(item_id))
 
     # statics取得
     youtube_video = getYoutubeItems(video_id=item_id)
