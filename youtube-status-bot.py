@@ -137,9 +137,6 @@ async def on_message(message):
     color=0x000000
     text=None
 
-    # メッセージ受取り
-    logger.info('on_message')
-
     # 送信者がbotである場合は弾く
     if message.author.bot:
         logger.warning('Message author is BOT')
