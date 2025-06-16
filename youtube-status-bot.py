@@ -105,8 +105,8 @@ client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
-    logger.info('BotId   : {0}'.format(client.user.id))
-    logger.info('BotName : {0}'.format(client.user.name))
+    logger.info('Connect OK id={0}'.format(client.user.id))
+    logger.info('Invite link: https://discord.com/oauth2/authorize?client_id={}'.format(client.user.id))
 
     await client.change_presence(
         status=discord.Status.online,
