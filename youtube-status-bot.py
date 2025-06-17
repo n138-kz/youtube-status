@@ -114,6 +114,7 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
 intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
+intents.typing = True
 client = discord.Client(intents=intents)
 
 @client.event
@@ -145,6 +146,15 @@ async def on_error(event):
     ))
     logger.error(sys.exc_info())
 
+@client.event
+async def on_typing(channel, user, when):
+    logger.info('on_typing: channel:{} user:{} when:{}'.format(
+        channel.id,
+        user.id,
+        when,
+    ))
+
+@client.event
 async def on_resumed():
     logger.info('resumed')
 
