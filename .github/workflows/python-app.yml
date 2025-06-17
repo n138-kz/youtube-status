@@ -36,4 +36,3 @@ jobs:
         # pytest
     - name: Test RUN *.py
       run: for i in *.py; do python "${i}"; done
-
