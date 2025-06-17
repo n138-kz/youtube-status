@@ -236,8 +236,8 @@ async def on_message(message):
     logger.debug(math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp()))
 
     # POST DATA
-    title = '{0} - {1}'.format(item_id, 'YouTube')
     descr = text
+    title = '{}'.format('YouTube')
     color = color_custom['success']
     image = youtube_video['snippet']['thumbnails']['default']['url']
 
