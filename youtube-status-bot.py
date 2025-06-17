@@ -343,6 +343,11 @@ async def on_message(message):
     # youtube-channel statics取得
     youtube_channel = getYoutubeChannels(youtube_video['snippet']['channelId'])
 
+    # 取得したチャンネルメタデータを保存
+    if True:
+        with open('/log/custom/c_{}.json'.format(youtube_video['snippet']['channelId']), 'w') as f:
+            json.dump(youtube_channel, f, sort_keys=True)
+
     logger.debug(youtube_channel)
     logger.debug(json.dumps(youtube_channel, sort_keys=True))
 
