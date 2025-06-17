@@ -177,6 +177,22 @@ async def on_message_edit(before, after):
     # https Linkのみ処理
     if not(after.content.startswith('https://')):
         return
+    # メッセージ受取り
+    logger.info('on_message_edit author: {}({}) guild:{} channel:{}'.format(
+        after.author.name,
+        after.author.id,
+        after.guild.id,
+        after.channel.id,
+    ))
+    logger.debug('on_message_edit author: {}({}) guild:{}({}) channel:{}({}) content:{}'.format(
+        after.author.name,
+        after.author.id,
+        after.guild.id,
+        after.guild.name,
+        after.channel.id,
+        after.channel.name,
+        after.content,
+    ))
 
 @client.event
 async def on_message_delete(message):
