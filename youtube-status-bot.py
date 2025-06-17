@@ -228,6 +228,12 @@ async def on_message(message):
     # statics取得
     youtube_video = getYoutubeItems(video_id=item_id)
     youtube_video = youtube_video['items'][0]
+
+    # 取得した動画メタデータを保存
+    if True:
+        with open('/log/custom/{}.json'.format(item_id), 'w') as f:
+        json.dump(youtube_video, f, sort_keys=True)
+
     del youtube_video['snippet']['description']
     del youtube_video['snippet']['localized']
 
