@@ -400,6 +400,21 @@ async def on_message(message):
         name=':eyes:',
         value=format(int(youtube_video['statistics']['viewCount']), ','),
     )
+    embed.add_field(
+        inline=True,
+        name='subscriber',
+        value=format(int(youtube_channel['statistics']['subscriberCount']), ','),
+    )
+    embed.add_field(
+        inline=True,
+        name='videoCount',
+        value=format(int(youtube_channel['statistics']['videoCount']), ','),
+    )
+    embed.add_field(
+        inline=True,
+        name='viewCount',
+        value=format(int(youtube_channel['statistics']['viewCount']), ','),
+    )
     logger.debug( await message.reply(embed=embed) )
 
 # botを起動
