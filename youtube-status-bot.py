@@ -174,6 +174,9 @@ async def on_message_edit(before, after):
     if after.channel.type != discord.ChannelType.text:
         logger.warning('Channel type is not text channel')
         return
+    # https Linkのみ処理
+    if not(after.content.startswith('https://')):
+        return
 
 @client.event
 async def on_message_delete(message):
