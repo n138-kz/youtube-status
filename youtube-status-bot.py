@@ -145,6 +145,9 @@ async def on_error(event):
     ))
     logger.error(sys.exc_info())
 
+async def on_resumed():
+    logger.info('resumed')
+
 @client.event
 async def on_message(message):
     # 変数初期化
