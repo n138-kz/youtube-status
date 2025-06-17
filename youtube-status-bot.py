@@ -139,6 +139,13 @@ async def on_disconnect():
     logger.warning('Disconnected')
 
 @client.event
+async def on_error(event):
+    logger.error('on_error: {}'.format(
+        event,
+    ))
+    logger.error(sys.exc_info())
+
+@client.event
 async def on_message(message):
     # 変数初期化
     title=None
