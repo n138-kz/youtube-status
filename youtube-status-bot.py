@@ -165,9 +165,19 @@ async def on_message(message):
     item_id = ''
 
     # メッセージ受取り
-    logger.info('on_message author: {0}({1})'.format(
+    logger.info('on_message author: {}({}) guild:{} channel:{}'.format(
         message.author.name,
         message.author.id,
+        message.guild.id,
+        message.channel.id,
+    ))
+    logger.debug('on_message author: {}({}) guild:{}({}) channel:{}({}) content:{}'.format(
+        message.author.name,
+        message.author.id,
+        message.guild.id,
+        message.guild.name,
+        message.channel.id,
+        message.channel.name,
         message.content,
     ))
 
