@@ -167,7 +167,15 @@ async def on_message(message):
         return
 
     # 変数初期化
-    item_id = ''
+    item_id = message.content
+    
+    # 複数行になってる場合最初のやつだけ
+    item_id = item_id.strip()
+    item_id += '\n'
+    item_id = item_id.split()[0]
+
+    # 動画URL
+    url=item_id
 
     # メッセージ受取り
     logger.info('on_message author: {}({}) guild:{} channel:{}'.format(
@@ -183,32 +191,32 @@ async def on_message(message):
         message.guild.name,
         message.channel.id,
         message.channel.name,
-        message.content,
+        item_id,
     ))
 
     # 動画IDの抽出
     if False:
         pass
-    elif message.content.startswith('https://youtu.be/'):
-        item_id = message.content.replace('https://youtu.be/', '')
+    elif item_id.startswith('https://youtu.be/'):
+        item_id = item_id.replace('https://youtu.be/', '')
         try:
             item_id = re.sub(r'\?.*', '', item_id)
         except re.PatternError:
             logger.error(traceback.format_exc())
-    elif message.content.startswith('https://www.youtube.com/watch?v='):
-        item_id = message.content.replace('https://www.youtube.com/watch?v=', '')
+    elif item_id.startswith('https://www.youtube.com/watch?v='):
+        item_id = item_id.replace('https://www.youtube.com/watch?v=', '')
         try:
             item_id = re.sub('&.*', '', item_id)
         except re.PatternError:
             logger.error(traceback.format_exc())
-    elif message.content.startswith('https://youtube.com/shorts/'):
-        item_id = message.content.replace('https://youtube.com/shorts/', '')
+    elif item_id.startswith('https://youtube.com/shorts/'):
+        item_id = item_id.replace('https://youtube.com/shorts/', '')
         try:
             item_id = re.sub(r'\?.*', '', item_id)
         except re.PatternError:
             logger.error(traceback.format_exc())
-    elif message.content.startswith('https://www.youtube.com/shorts/'):
-        item_id = message.content.replace('https://www.youtube.com/shorts/', '')
+    elif item_id.startswith('https://www.youtube.com/shorts/'):
+        item_id = item_id.replace('https://www.youtube.com/shorts/', '')
         try:
             item_id = re.sub(r'\?.*', '', item_id)
         except re.PatternError:
@@ -230,7 +238,6 @@ async def on_message(message):
     title = '{0} - {1}'.format(item_id, 'YouTube')
     descr = text
     color = color_custom['success']
-    url   = message.content
     image = youtube_video['snippet']['thumbnails']['default']['url']
 
     # Discord.Embed
