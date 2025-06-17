@@ -149,6 +149,11 @@ async def on_resumed():
     logger.info('resumed')
 
 @client.event
+async def on_message_edit(before, after):
+    logger.info('on_message_edit')
+    on_message(after)
+
+@client.event
 async def on_message(message):
     # 変数初期化
     title=None
