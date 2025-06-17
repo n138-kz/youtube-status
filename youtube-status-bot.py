@@ -290,6 +290,18 @@ async def on_message(message):
     )
     color = color_custom['success']
     image = youtube_video['snippet']['thumbnails']['default']['url']
+    try:
+        image = youtube_video['snippet']['thumbnails']['high']['url']
+    except NameError:
+        pass
+    try:
+        image = youtube_video['snippet']['thumbnails']['standard']['url']
+    except NameError:
+        pass
+    try:
+        image = youtube_video['snippet']['thumbnails']['maxres']['url']
+    except NameError:
+        pass
 
     # Discord.Embed
     embed = discord.Embed(
