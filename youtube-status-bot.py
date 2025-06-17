@@ -364,15 +364,15 @@ async def on_message(message):
     image = youtube_video['snippet']['thumbnails']['default']['url']
     try:
         image = youtube_video['snippet']['thumbnails']['high']['url']
-    except NameError:
+    except (NameError,KeyError):
         pass
     try:
         image = youtube_video['snippet']['thumbnails']['standard']['url']
-    except NameError:
+    except (NameError,KeyError):
         pass
     try:
         image = youtube_video['snippet']['thumbnails']['maxres']['url']
-    except NameError:
+    except (NameError,KeyError):
         pass
 
     # Discord.Embed
