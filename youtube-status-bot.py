@@ -330,7 +330,7 @@ async def on_message(message):
 
     # 取得した動画メタデータを保存
     if True:
-        with open('/log/custom/{}.json'.format(item_id), 'w') as f:
+        with open('/log/custom/v_{}.json'.format(item_id), 'w') as f:
             json.dump(youtube_video, f, sort_keys=True)
 
     del youtube_video['snippet']['description']
