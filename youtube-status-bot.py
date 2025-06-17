@@ -131,6 +131,10 @@ async def on_ready():
     logger.info('Ready')
 
 @client.event
+async def on_connect():
+    logger.info('Connected')
+
+@client.event
 async def on_message(message):
     # 変数初期化
     title=None
