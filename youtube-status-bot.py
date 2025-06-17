@@ -348,6 +348,9 @@ async def on_message(message):
         with open('/log/custom/c_{}.json'.format(youtube_video['snippet']['channelId']), 'w') as f:
             json.dump(youtube_channel, f, sort_keys=True)
 
+    del youtube_channel['snippet']['description']
+    del youtube_channel['snippet']['localized']
+
     logger.debug(youtube_channel)
     logger.debug(json.dumps(youtube_channel, sort_keys=True))
 
