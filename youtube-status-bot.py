@@ -160,6 +160,9 @@ async def on_resumed():
 
 @client.event
 async def on_message_edit(before, after):
+    # 送信者が自分自身である場合は弾く
+    if after.author.id == client.user.id:
+        return
 
 @client.event
 async def on_message_delete(message):
