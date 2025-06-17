@@ -111,6 +111,26 @@ def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
 
     return response
 
+def getYoutubeChannels(channel_id='', api_service_name='youtube', api_version='v3'):
+    """
+    * @return :Dictionary
+    """
+    youtube = discovery.build(
+        api_service_name,
+        api_version,
+        developerKey=TOKEN_YOUTUBE
+    )
+
+    response = youtube.channels().list(
+        part='snippet,statistics',
+        id=channel_id
+    ).execute()
+
+    for item in response.get("items", []):
+        if item["kind"] != "youtube#channel":
+            continue
+        return item
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
@@ -319,6 +339,12 @@ async def on_message(message):
     logger.debug(youtube_video)
     logger.debug(json.dumps(youtube_video, sort_keys=True))
     logger.debug(math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp()))
+
+    # youtube-channel statics取得
+    youtube_channel = getYoutubeChannels(youtube_video['snippet']['channelId'])
+
+    logger.debug(youtube_channel)
+    logger.debug(json.dumps(youtube_channel, sort_keys=True))
 
     # POST DATA
     title = '{}'.format('YouTube')
