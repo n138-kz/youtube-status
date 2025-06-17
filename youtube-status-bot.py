@@ -160,7 +160,7 @@ async def on_disconnect():
     logger.warning('Disconnected')
 
 @client.event
-async def on_error(event):
+async def on_error(event, args, kwargs):
     logger.error('on_error: {}'.format(
         event,
     ))
