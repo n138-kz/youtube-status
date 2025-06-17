@@ -163,6 +163,13 @@ async def on_message_edit(before, after):
     # 送信者が自分自身である場合は弾く
     if after.author.id == client.user.id:
         return
+    # 送信者がbotである場合は弾く
+    if after.author.bot:
+        logger.warning('Message author is BOT: {}({})'.format(
+            after.author.name,
+            after.author.id,
+        ))
+        return
 
 @client.event
 async def on_message_delete(message):
@@ -191,8 +198,8 @@ async def on_message(message):
     # 送信者がbotである場合は弾く
     if message.author.bot:
         logger.warning('Message author is BOT: {}({})'.format(
-            after.author.name,
-            after.author.id,
+            message.author.name,
+            message.author.id,
         ))
         return
     # テキストチャンネルのみ処理
