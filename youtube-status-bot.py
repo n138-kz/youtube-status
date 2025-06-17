@@ -154,6 +154,10 @@ async def on_message_edit(before, after):
     on_message(after)
 
 @client.event
+async def on_message_delete(message):
+    logger.info('on_message_delete')
+
+@client.event
 async def on_message(message):
     # 変数初期化
     title=None
