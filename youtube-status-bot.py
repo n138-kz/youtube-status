@@ -160,8 +160,6 @@ async def on_resumed():
 
 @client.event
 async def on_message_edit(before, after):
-    logger.info('on_message_edit')
-    on_message(after)
 
 @client.event
 async def on_message_delete(message):
@@ -189,7 +187,10 @@ async def on_message(message):
         return
     # 送信者がbotである場合は弾く
     if message.author.bot:
-        logger.warning('Message author is BOT')
+        logger.warning('Message author is BOT: {}({})'.format(
+            after.author.name,
+            after.author.id,
+        ))
         return
     # テキストチャンネルのみ処理
     if message.channel.type != discord.ChannelType.text:
