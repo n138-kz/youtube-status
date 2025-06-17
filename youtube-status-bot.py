@@ -158,6 +158,10 @@ async def on_message_delete(message):
     logger.info('on_message_delete')
 
 @client.event
+async def on_bulk_message_delete(message):
+    logger.info('on_bulk_message_delete')
+
+@client.event
 async def on_message(message):
     # 変数初期化
     title=None
