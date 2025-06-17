@@ -195,6 +195,9 @@ async def on_message(message):
     if message.channel.type != discord.ChannelType.text:
         logger.warning('Channel type is not text channel')
         return
+    # https Linkのみ処理
+    if not(message.content.startswith('https://')):
+        return
     # Youtube Linkのみ処理
     if not(
         message.content.startswith('https://youtu.be/')
