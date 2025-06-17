@@ -213,7 +213,7 @@ async def on_message_edit(before, after):
         after.channel.name,
         after.content,
     ))
-    await on_message(after)
+    # await on_message(after)
 
 @client.event
 async def on_message_delete(message):
