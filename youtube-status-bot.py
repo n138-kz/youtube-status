@@ -170,6 +170,10 @@ async def on_message_edit(before, after):
             after.author.id,
         ))
         return
+    # テキストチャンネルのみ処理
+    if after.channel.type != discord.ChannelType.text:
+        logger.warning('Channel type is not text channel')
+        return
 
 @client.event
 async def on_message_delete(message):
