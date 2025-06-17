@@ -236,14 +236,17 @@ async def on_message(message):
     logger.debug(math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp()))
 
     # POST DATA
-    descr = text
     title = '{}'.format('YouTube')
+    descr = '[{}]({})'.format(
+        youtube_video['snippet']['title'],
+        url,
+    )
     color = color_custom['success']
     image = youtube_video['snippet']['thumbnails']['default']['url']
 
     # Discord.Embed
     embed = discord.Embed(
-        title=title, description=text, color=color, url=url,
+        title=title, description=descr, color=color, url=url,
         timestamp=datetime.datetime.now(datetime.timezone.utc),
     )
     try:
