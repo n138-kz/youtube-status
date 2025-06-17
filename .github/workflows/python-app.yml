@@ -6,7 +6,7 @@ name: Python application
 on:
   workflow_dispatch:
   push:
-    paths: [ '**.py' ]
+    paths: [ '**.py', 'python-app.yml' ]
 
 permissions:
   contents: read
@@ -31,6 +31,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install -r requirements.txt
+    - name: logdir
+      run: |
+        if [ ! -d /log/custom/ ] ; then mkdir -p /log/custom/ ; fi
     - name: Test with pytest
       run: |
         # pytest
