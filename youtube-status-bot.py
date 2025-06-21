@@ -402,7 +402,7 @@ async def on_message(message):
     )
     embed.add_field(
         inline=True,
-        name='subscriber',
+        name=':busts_in_silhouette:',
         value=format(int(youtube_channel['statistics']['subscriberCount']), ','),
     )
     embed.add_field(
