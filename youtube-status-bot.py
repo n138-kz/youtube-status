@@ -79,6 +79,20 @@ if len(TOKEN_YOUTUBE) > 0:
 else:
     raise ValueError('Require the token.youtube')
 
+ICONTEXT_statistics={}
+ICONTEXT_statistics['default']=[
+    ['commentCount', ':speech_balloon:'],
+    ['likeCount', ':thumbsup:'],
+    ['viewCount', ':eyes:'],
+    ['subscriberCount', ':busts_in_silhouette:'],
+    ['videoCount', ':video_camera:'],
+    ['viewCounte', 'viewCount'],
+]
+for list in ICONTEXT_statistics['default']:
+    ICONTEXT_statistics[list[0]]=os.environ['ICONTEXT_statistics_'+list[0]]
+    if len(ICONTEXT_statistics[list[0]]) == 0:
+        ICONTEXT_statistics[list[0]]=list[1]
+
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
     * @return :Dictionary
@@ -387,32 +401,32 @@ async def on_message(message):
     embed.set_image(url=image)
     embed.add_field(
         inline=True,
-        name=':speech_balloon:',
+        name=ICONTEXT_statistics['commentCount'],
         value=format(int(youtube_video['statistics']['commentCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=':thumbsup:',
+        name=ICONTEXT_statistics['likeCount'],
         value=format(int(youtube_video['statistics']['likeCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=':eyes:',
+        name=ICONTEXT_statistics['viewCount'],
         value=format(int(youtube_video['statistics']['viewCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=':busts_in_silhouette:',
+        name=ICONTEXT_statistics['subscriberCount'],
         value=format(int(youtube_channel['statistics']['subscriberCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=':video_camera:',
+        name=ICONTEXT_statistics['videoCount'],
         value=format(int(youtube_channel['statistics']['videoCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name='viewCount',
+        name=ICONTEXT_statistics['viewCount'],
         value=format(int(youtube_channel['statistics']['viewCount']), ','),
     )
     logger.debug( await message.reply(embed=embed) )
