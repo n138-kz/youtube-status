@@ -33,7 +33,7 @@
 
 ## .env
 
-Follow the [Sample .env](.env.txt)
+Follow the [Sample .env](/.env.txt)
 
 ## License
 
