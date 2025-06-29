@@ -31,6 +31,10 @@
 
 [Invite URL](https://discord.com/oauth2/authorize?client_id=1383436838404100197)
 
+## .env
+
+Follow the [Sample .env](.env.txt)
+
 ## License
 
 [Copyright (c) 2025 Yuu Komiya (n138), Under MIT License](LICENSE)  
