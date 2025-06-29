@@ -81,12 +81,12 @@ else:
 
 ICONTEXT_statistics={}
 ICONTEXT_statistics['default']=[
-    ['commentCount', ':speech_balloon:'],
-    ['likeCount', ':thumbsup:'],
-    ['viewCount', ':eyes:'],
-    ['subscriberCount', ':busts_in_silhouette:'],
-    ['videoCount', ':video_camera:'],
-    ['viewCounte', 'viewCount'],
+    ['v_commentCount', ':speech_balloon:'],
+    ['v_likeCount', ':thumbsup:'],
+    ['v_viewCount', ':eyes:'],
+    ['c_subscriberCount', ':busts_in_silhouette:'],
+    ['c_videoCount', ':video_camera:'],
+    ['c_viewCount', ':eyes:'],
 ]
 for list in ICONTEXT_statistics['default']:
     ICONTEXT_statistics[list[0]]=os.environ['ICONTEXT_statistics_'+list[0]]
@@ -401,32 +401,32 @@ async def on_message(message):
     embed.set_image(url=image)
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['commentCount'],
+        name=ICONTEXT_statistics['v_commentCount'],
         value=format(int(youtube_video['statistics']['commentCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['likeCount'],
+        name=ICONTEXT_statistics['v_likeCount'],
         value=format(int(youtube_video['statistics']['likeCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['viewCount'],
+        name=ICONTEXT_statistics['v_viewCount'],
         value=format(int(youtube_video['statistics']['viewCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['subscriberCount'],
+        name=ICONTEXT_statistics['c_subscriberCount'],
         value=format(int(youtube_channel['statistics']['subscriberCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['videoCount'],
+        name=ICONTEXT_statistics['c_videoCount'],
         value=format(int(youtube_channel['statistics']['videoCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['viewCount'],
+        name=ICONTEXT_statistics['c_viewCount'],
         value=format(int(youtube_channel['statistics']['viewCount']), ','),
     )
     logger.debug( await message.reply(embed=embed) )
