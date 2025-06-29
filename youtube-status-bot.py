@@ -407,7 +407,7 @@ async def on_message(message):
     )
     embed.add_field(
         inline=True,
-        name='videoCount',
+        name=':video_camera:',
         value=format(int(youtube_channel['statistics']['videoCount']), ','),
     )
     embed.add_field(
