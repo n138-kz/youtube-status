@@ -199,6 +199,8 @@ def store_c_info(dsn='', data={}):
                     cur.execute(sql, (
                         data['id'],
                     ))
+                    conn.commit()
+
                 sql  = ''
                 sql += 'INSERT INTO youtube_status_channel'
                 sql += ' ('
