@@ -145,6 +145,444 @@ def getYoutubeChannels(channel_id='', api_service_name='youtube', api_version='v
             continue
         return item
 
+dsn = 'postgresql://{}:{}@{}:{}/{}'.format(
+    os.environ.get('DATABASE_DSN_username', 'postgres'),
+    os.environ.get('DATABASE_DSN_password', 'postgres'),
+    os.environ.get('DATABASE_DSN_hostaddr', 'localhost'),
+    os.environ.get('DATABASE_DSN_portnum', 5432),
+    os.environ.get('DATABASE_DSN_database', 'postgres'),
+)
+def store_v_info(dsn='', data={}):
+    try:
+        import psycopg2
+    except (ModuleNotFoundError):
+        return None
+
+    try:
+        with psycopg2.connect(dsn) as conn:
+            with conn.cursor() as cur:
+                # Keyチェック、なければNullにする
+                if 'snippet' not in data:
+                    data['snippet'] = {}
+                if 'localized' not in data['snippet']:
+                    data['snippet']['localized'] = {}
+                if 'thumbnails' not in data['snippet']:
+                    data['snippet']['thumbnails'] = {}
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    if item not in data['snippet']['thumbnails']:
+                        data['snippet']['thumbnails'][item] = {
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        }
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    data['snippet']['thumbnails'][item] = {
+                        **{
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        },
+                        **data['snippet']['thumbnails'][item],
+                    }
+                data['snippet']['localized'] = {
+                    **{
+                        'title': None,
+                        'description': None,
+                    },
+                    **data['snippet']['localized'],
+                }
+                data['snippet'] = {
+                    **{
+                        'categoryId': None,
+                        'channelId': None,
+                        'defaultAudioLanguage': None,
+                        'liveBroadcastContent': None,
+                        'publishedAt': None,
+                        'title': None,
+                        'description': None,
+                        'localized': None,
+                    },
+                    **data['snippet'],
+                }
+
+                # 既存のデータを削除（UPDATEだとカラムが多くかなり大変なので）
+                for item in [
+                    'youtube_status_video_thumbnails',
+                    'youtube_status_video_statistics',
+                    'youtube_status_video',
+                ]:
+                    sql  = ''
+                    sql += f'DELETE FROM {item}'
+                    sql += ' WHERE id = %s'
+                    sql += ';'
+                    cur.execute(sql, (
+                        data['id'],
+                    ))
+                    conn.commit()
+
+                # youtube_status_video.core
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_video'
+                sql += ' ('
+                sql += 'id'
+                sql += ', etag'
+                sql += ', kind'
+                sql += ', category_id'
+                sql += ', channel_id'
+                sql += ', default_audio_language'
+                sql += ', live_broadcast_content'
+                sql += ', published_at'
+                sql += ', global_title'
+                sql += ', global_description'
+                sql += ', localized_title'
+                sql += ', localized_description'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+
+                # 投げる内容をデバッグ
+                logger.debug(f"id: {data['id']}")
+                logger.debug(f"etag: {data['etag']}")
+                logger.debug(f"kind: {data['kind']}")
+                logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp()}")
+                logger.debug(f"global_title: {data['snippet']['title']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"global_description: {len(data['snippet']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
+                logger.debug(f"localized_title: {data['snippet']['localized']['title']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"localized_description: {len(data['snippet']['localized']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
+                logger.debug(f"categoryId: {data['snippet']['categoryId']}")
+                logger.debug(f"channelId: {data['snippet']['channelId']}")
+                logger.debug(f"defaultAudioLanguage: {data['snippet']['defaultAudioLanguage']}")
+                logger.debug(f"liveBroadcastContent: {data['snippet']['liveBroadcastContent']}")
+
+                # Insert to Database
+                cur.execute(sql, (
+                    data['id'],
+                    data['etag'],
+                    data['kind'],
+                    data['snippet']['categoryId'],
+                    data['snippet']['channelId'],
+                    data['snippet']['defaultAudioLanguage'],
+                    data['snippet']['liveBroadcastContent'],
+                    datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp(),
+                    data['snippet']['title'],
+                    data['snippet']['description'],
+                    data['snippet']['localized']['title'],
+                    data['snippet']['localized']['description'],
+                ))
+
+                # youtube_status_video.thumbnails
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_video_thumbnails'
+                sql += ' ('
+                sql += 'id'
+                sql += ', default_url'
+                sql += ', default_width'
+                sql += ', default_height'
+                sql += ', medium_url'
+                sql += ', medium_width'
+                sql += ', medium_height'
+                sql += ', high_url'
+                sql += ', high_width'
+                sql += ', high_height'
+                sql += ', standard_url'
+                sql += ', standard_width'
+                sql += ', standard_height'
+                sql += ', maxres_url'
+                sql += ', maxres_width'
+                sql += ', maxres_height'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+
+                # Insert to Database
+                cur.execute(sql, (
+                    data['id'],
+                    data['snippet']['thumbnails']['default']['url'],
+                    int(data['snippet']['thumbnails']['default']['width']),
+                    int(data['snippet']['thumbnails']['default']['height']),
+                    data['snippet']['thumbnails']['medium']['url'],
+                    int(data['snippet']['thumbnails']['medium']['width']),
+                    int(data['snippet']['thumbnails']['medium']['height']),
+                    data['snippet']['thumbnails']['high']['url'],
+                    int(data['snippet']['thumbnails']['high']['width']),
+                    int(data['snippet']['thumbnails']['high']['height']),
+                    data['snippet']['thumbnails']['standard']['url'],
+                    int(data['snippet']['thumbnails']['standard']['width']),
+                    int(data['snippet']['thumbnails']['standard']['height']),
+                    data['snippet']['thumbnails']['maxres']['url'],
+                    int(data['snippet']['thumbnails']['maxres']['width']),
+                    int(data['snippet']['thumbnails']['maxres']['height']),
+                ))
+
+                # youtube_status_video.statistics
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_video_statistics'
+                sql += ' ('
+                sql += 'id'
+                sql += ', comment_count'
+                sql += ', favorite_count'
+                sql += ', like_count'
+                sql += ', view_count'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+
+                # Insert to Database
+                cur.execute(sql, (
+                    data['id'],
+                    int(data['statistics']['commentCount']),
+                    int(data['statistics']['favoriteCount']),
+                    int(data['statistics']['likeCount']),
+                    int(data['statistics']['viewCount']),
+                ))
+                conn.commit()
+                return True
+    except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
+        logger.error(f'Error has occured in Database operation: {error}')
+        logger.error(f'{sys.exc_info()}')
+        logger.error(f'{traceback.format_exc()}')
+        return False
+def store_c_info(dsn='', data={}):
+    try:
+        import psycopg2
+    except (ModuleNotFoundError):
+        return None
+
+    try:
+        with psycopg2.connect(dsn) as conn:
+            with conn.cursor() as cur:
+                # Keyチェック、なければNullにする
+                if 'snippet' not in data:
+                    data['snippet'] = {}
+                if 'localized' not in data['snippet']:
+                    data['snippet']['localized'] = {}
+                if 'thumbnails' not in data['snippet']:
+                    data['snippet']['thumbnails'] = {}
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    if item not in data['snippet']['thumbnails']:
+                        data['snippet']['thumbnails'][item] = {
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        }
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    data['snippet']['thumbnails'][item] = {
+                        **{
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        },
+                        **data['snippet']['thumbnails'][item],
+                    }
+                data['snippet']['localized'] = {
+                    **{
+                        'title': None,
+                        'description': None,
+                    },
+                    **data['snippet']['localized'],
+                }
+                data['snippet'] = {
+                    **{
+                        'customUrl': None,
+                        'publishedAt': None,
+                        'title': None,
+                        'description': None,
+                        'localized': None,
+                    },
+                    **data['snippet'],
+                }
+
+                # 既存のデータを削除（UPDATEだとカラムが多くかなり大変なので）
+                for item in [
+                    'youtube_status_channel_thumbnails',
+                    'youtube_status_channel_statistics',
+                    'youtube_status_channel',
+                ]:
+                    sql  = ''
+                    sql += f'DELETE FROM {item}'
+                    sql += ' WHERE id = %s'
+                    sql += ';'
+                    cur.execute(sql, (
+                        data['id'],
+                    ))
+                    conn.commit()
+
+                # youtube_status_channel.core
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_channel'
+                sql += ' ('
+                sql += 'id'
+                sql += ', etag'
+                sql += ', kind'
+                sql += ', customUrl'
+                sql += ', published_at'
+                sql += ', global_title'
+                sql += ', global_description'
+                sql += ', localized_title'
+                sql += ', localized_description'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+
+                # 投げる内容をデバッグ
+                logger.debug(f"id: {data['id']}")
+                logger.debug(f"etag: {data['etag']}")
+                logger.debug(f"kind: {data['kind']}")
+                logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp()}")
+                logger.debug(f"global_title: {data['snippet']['title']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"global_description: {len(data['snippet']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
+                logger.debug(f"localized_title: {data['snippet']['localized']['title']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"localized_description: {len(data['snippet']['localized']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
+                logger.debug(f"customUrl: {data['snippet']['customUrl']}")
+
+                # Insert to Database
+                cur.execute(sql, (
+                    data['id'],
+                    data['etag'],
+                    data['kind'],
+                    data['snippet']['customUrl'],
+                    datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp(),
+                    data['snippet']['title'],
+                    data['snippet']['description'],
+                    data['snippet']['localized']['title'],
+                    data['snippet']['localized']['description'],
+                ))
+
+                # youtube_status_channel.thumbnails
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_channel_thumbnails'
+                sql += ' ('
+                sql += 'id'
+                sql += ', default_url'
+                sql += ', default_width'
+                sql += ', default_height'
+                sql += ', medium_url'
+                sql += ', medium_width'
+                sql += ', medium_height'
+                sql += ', high_url'
+                sql += ', high_width'
+                sql += ', high_height'
+                sql += ', standard_url'
+                sql += ', standard_width'
+                sql += ', standard_height'
+                sql += ', maxres_url'
+                sql += ', maxres_width'
+                sql += ', maxres_height'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+
+                # Insert to Database
+                cur.execute(sql, (
+                    data['id'],
+                    data['snippet']['thumbnails']['default']['url'],
+                    int(data['snippet']['thumbnails']['default']['width']),
+                    int(data['snippet']['thumbnails']['default']['height']),
+                    data['snippet']['thumbnails']['medium']['url'],
+                    int(data['snippet']['thumbnails']['medium']['width']),
+                    int(data['snippet']['thumbnails']['medium']['height']),
+                    data['snippet']['thumbnails']['high']['url'],
+                    int(data['snippet']['thumbnails']['high']['width']),
+                    int(data['snippet']['thumbnails']['high']['height']),
+                    data['snippet']['thumbnails']['standard']['url'],
+                    int(data['snippet']['thumbnails']['standard']['width']),
+                    int(data['snippet']['thumbnails']['standard']['height']),
+                    data['snippet']['thumbnails']['maxres']['url'],
+                    int(data['snippet']['thumbnails']['maxres']['width']),
+                    int(data['snippet']['thumbnails']['maxres']['height']),
+                ))
+
+                # youtube_status_channel.statistics
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_channel_statistics'
+                sql += ' ('
+                sql += 'id'
+                sql += ', hidden_subscriber_count'
+                sql += ', subscriber_count'
+                sql += ', video_count'
+                sql += ', view_count'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+
+                # Insert to Database
+                cur.execute(sql, (
+                    data['id'],
+                    bool(data['statistics']['hiddenSubscriberCount']),
+                    int(data['statistics']['subscriberCount']),
+                    int(data['statistics']['videoCount']),
+                    int(data['statistics']['viewCount']),
+                ))
+                conn.commit()
+                return True
+    except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
+        logger.error(f'Error has occured in Database operation: {error}')
+        logger.error(f'{sys.exc_info()}')
+        logger.error(f'{traceback.format_exc()}')
+        return False
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
@@ -347,12 +785,14 @@ async def on_message(message):
         with open('/log/custom/v_{}.json'.format(item_id), 'w') as f:
             json.dump(youtube_video, f, sort_keys=True)
 
-    del youtube_video['snippet']['description']
-    del youtube_video['snippet']['localized']
+    from copy import deepcopy
+    logging_mesg = deepcopy(youtube_video)
+    del logging_mesg['snippet']['description']
+    del logging_mesg['snippet']['localized']
 
-    logger.debug(youtube_video)
-    logger.debug(json.dumps(youtube_video, sort_keys=True))
-    logger.debug(math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp()))
+    logger.debug(f'youtube_video: {logging_mesg}')
+    logger.debug(f'youtube_video: {json.dumps(logging_mesg, sort_keys=True)}')
+    logger.debug(f"youtube_video: {math.trunc(datetime.datetime.fromisoformat(logging_mesg['snippet']['publishedAt']).timestamp())}")
 
     # youtube-channel statics取得
     youtube_channel = getYoutubeChannels(youtube_video['snippet']['channelId'])
@@ -362,11 +802,17 @@ async def on_message(message):
         with open('/log/custom/c_{}.json'.format(youtube_video['snippet']['channelId']), 'w') as f:
             json.dump(youtube_channel, f, sort_keys=True)
 
-    del youtube_channel['snippet']['description']
-    del youtube_channel['snippet']['localized']
+    from copy import deepcopy
+    logging_mesg = deepcopy(youtube_channel)
+    del logging_mesg['snippet']['description']
+    del logging_mesg['snippet']['localized']
 
-    logger.debug(youtube_channel)
-    logger.debug(json.dumps(youtube_channel, sort_keys=True))
+    logger.debug(f'youtube_channel: {logging_mesg}')
+    logger.debug(f'youtube_channel: {json.dumps(logging_mesg, sort_keys=True)}')
+
+    # 取得したデータをデータベースに保存
+    logger.debug(f'store_c_info: {store_c_info(dsn=dsn, data=youtube_channel)}')
+    logger.debug(f'store_v_info: {store_v_info(dsn=dsn, data=youtube_video)}')
 
     # POST DATA
     title = '{}'.format('YouTube')
