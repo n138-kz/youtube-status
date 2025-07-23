@@ -232,6 +232,29 @@ def store_v_info(dsn='', data={}):
                     ))
                     conn.commit()
 
+                # youtube_status_video.core
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_video'
+                sql += ' ('
+                sql += 'id'
+                sql += ', etag'
+                sql += ', kind'
+                sql += ', category_id'
+                sql += ', channel_id'
+                sql += ', default_audio_language'
+                sql += ', live_broadcast_content'
+                sql += ', published_at'
+                sql += ', global_title'
+                sql += ', global_description'
+                sql += ', localized_title'
+                sql += ', localized_description'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+
                 return False
     except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
         logger.error(f'Error has occured in Database operation: {error}')
