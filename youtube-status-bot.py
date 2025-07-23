@@ -197,6 +197,23 @@ def store_c_info(dsn='', data={}):
                     data['snippet'] = {}
                 if 'localized' not in data['snippet']:
                     data['snippet']['localized'] = {}
+                data['snippet']['localized'] = {
+                    **{
+                        'title': None,
+                        'description': None,
+                    },
+                    **data['snippet']['localized'],
+                }
+                data['snippet'] = {
+                    **{
+                        'customUrl': None,
+                        'publishedAt': None,
+                        'title': None,
+                        'description': None,
+                        'localized': None,
+                    },
+                    **data['snippet'],
+                }
                 cur.execute(sql, (
                     data['id'],
                     data['etag'],
