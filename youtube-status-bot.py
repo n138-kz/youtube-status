@@ -162,6 +162,59 @@ def store_v_info(dsn='', data={}):
     try:
         with psycopg2.connect(dsn) as conn:
             with conn.cursor() as cur:
+                # Keyチェック、なければNullにする
+                if 'snippet' not in data:
+                    data['snippet'] = {}
+                if 'localized' not in data['snippet']:
+                    data['snippet']['localized'] = {}
+                if 'thumbnails' not in data['snippet']:
+                    data['snippet']['thumbnails'] = {}
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    if item not in data['snippet']['thumbnails']:
+                        data['snippet']['thumbnails'][item] = {
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        }
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    data['snippet']['thumbnails'][item] = {
+                        **{
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        },
+                        **data['snippet']['thumbnails'][item],
+                    }
+                data['snippet']['localized'] = {
+                    **{
+                        'title': None,
+                        'description': None,
+                    },
+                    **data['snippet']['localized'],
+                }
+                data['snippet'] = {
+                    **{
+                        'customUrl': None,
+                        'publishedAt': None,
+                        'title': None,
+                        'description': None,
+                        'localized': None,
+                    },
+                    **data['snippet'],
+                }
+
     except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         logger.error(f'{sys.exc_info()}')
