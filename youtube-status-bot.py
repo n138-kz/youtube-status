@@ -204,6 +204,20 @@ def store_c_info(dsn='', data={}):
                     data['snippet']['localized.title'],
                     data['snippet']['localized.description'],
                 ))
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_channel_statistics'
+                sql += ' ('
+                sql += 'id'
+                sql += ', hidden_subscriber_count'
+                sql += ', subscriber_count'
+                sql += ', video_count'
+                sql += ', view_count'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         return False
