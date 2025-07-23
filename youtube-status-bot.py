@@ -251,7 +251,7 @@ def store_v_info(dsn='', data={}):
                 sql += ')'
                 sql += ' VALUES'
                 sql += ' ('
-                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
 
