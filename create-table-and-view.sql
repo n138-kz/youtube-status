@@ -1,4 +1,4 @@
-
+DROP TABLE IF EXISTS youtube_status_channel_thumbnails;
 DROP TABLE IF EXISTS youtube_status_channel_statistics;
 DROP TABLE IF EXISTS youtube_status_channel;
 CREATE TABLE IF NOT EXISTS youtube_status_channel (
