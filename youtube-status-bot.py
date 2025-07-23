@@ -154,6 +154,11 @@ dsn = 'postgresql://{}:{}@{}:{}/{}'.format(
 )
 def store_v_info(dsn='', data={}):
     return False
+    try:
+        import psycopg2
+    except (ModuleNotFoundError):
+        return None
+
 def store_c_info(dsn='', data={}):
     try:
         import psycopg2
