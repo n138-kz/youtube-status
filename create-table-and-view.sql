@@ -1,5 +1,6 @@
 -- drop
 DROP VIEW IF EXISTS public.youtube_status_video_view;
+DROP VIEW IF EXISTS public.youtube_status_channel_view;
 DROP TABLE IF EXISTS youtube_status_video_thumbnails;
 DROP TABLE IF EXISTS youtube_status_video_statistics;
 DROP TABLE IF EXISTS youtube_status_video;
@@ -133,3 +134,23 @@ CREATE OR REPLACE VIEW public.youtube_status_video_view
   ON public.youtube_status_video.id=youtube_status_video_statistics.id
   ORDER BY public.youtube_status_video."timestamp" DESC NULLS FIRST;
 ALTER VIEW IF EXISTS public.youtube_status_video_view OWNER to webapp;
+CREATE OR REPLACE VIEW public.youtube_status_channel_view
+  AS
+  SELECT 
+    to_timestamp(trunc(public.youtube_status_channel."timestamp")) as timestamp,
+    public.youtube_status_channel.id,
+    public.youtube_status_channel.customUrl,
+    public.youtube_status_channel.published_at,
+    public.youtube_status_channel.global_title,
+    public.youtube_status_channel.global_description,
+    public.youtube_status_channel.localized_title,
+    public.youtube_status_channel.localized_description,
+    public.youtube_status_channel_statistics.hidden_subscriber_count,
+    public.youtube_status_channel_statistics.subscriber_count,
+    public.youtube_status_channel_statistics.video_count,
+    public.youtube_status_channel_statistics.view_count
+  FROM public.youtube_status_channel
+  JOIN public.youtube_status_channel_statistics
+  ON public.youtube_status_channel.id=youtube_status_channel_statistics.id
+  ORDER BY public.youtube_status_channel."timestamp" DESC NULLS FIRST;
+ALTER VIEW IF EXISTS public.youtube_status_channel_view OWNER to webapp;
