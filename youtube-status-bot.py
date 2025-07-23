@@ -160,6 +160,10 @@ def store_c_info(dsn='', data={}):
     except (ModuleNotFoundError):
         return None
 
+    try:
+    except (Exception) as error:
+        logger.error(f'Error has occured in Database operation: {error}')
+        return False
 
 intents = discord.Intents.default()
 intents.message_content = True
