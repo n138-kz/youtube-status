@@ -1,4 +1,5 @@
 -- drop
+DROP VIEW IF EXISTS public.youtube_status_video_view;
 DROP TABLE IF EXISTS youtube_status_video_thumbnails;
 DROP TABLE IF EXISTS youtube_status_video_statistics;
 DROP TABLE IF EXISTS youtube_status_video;
@@ -107,3 +108,28 @@ CREATE TABLE IF NOT EXISTS youtube_status_video_statistics (
   CONSTRAINT youtube_status_video_statistics_pkey PRIMARY KEY (id)
 );
 ALTER TABLE IF EXISTS public.youtube_status_video_statistics OWNER to webapp;
+CREATE OR REPLACE VIEW public.youtube_status_video_view
+  AS
+  SELECT 
+    to_timestamp(trunc(public.youtube_status_video."timestamp")) as timestamp,
+    public.youtube_status_video.id,
+    public.youtube_status_video.category_id,
+    public.youtube_status_channel.global_title as channel_title,
+    public.youtube_status_video.default_audio_language,
+    public.youtube_status_video.live_broadcast_content,
+    public.youtube_status_video.published_at,
+    public.youtube_status_video.global_title,
+    public.youtube_status_video.global_description,
+    public.youtube_status_video.localized_title,
+    public.youtube_status_video.localized_description,
+    public.youtube_status_video_statistics.comment_count,
+    public.youtube_status_video_statistics.favorite_count,
+    public.youtube_status_video_statistics.like_count,
+    public.youtube_status_video_statistics.view_count
+  FROM public.youtube_status_video
+  JOIN public.youtube_status_channel
+  ON public.youtube_status_video.channel_id=youtube_status_channel.id
+  JOIN public.youtube_status_video_statistics
+  ON public.youtube_status_video.id=youtube_status_video_statistics.id
+  ORDER BY public.youtube_status_video."timestamp" DESC NULLS FIRST;
+ALTER VIEW IF EXISTS public.youtube_status_video_view OWNER to webapp;
