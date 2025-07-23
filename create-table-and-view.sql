@@ -1,5 +1,6 @@
 -- drop
 DROP TABLE IF EXISTS youtube_status_video_thumbnails;
+DROP TABLE IF EXISTS youtube_status_video_statistics;
 DROP TABLE IF EXISTS youtube_status_video;
 DROP TABLE IF EXISTS youtube_status_channel_thumbnails;
 DROP TABLE IF EXISTS youtube_status_channel_statistics;
@@ -88,4 +89,14 @@ CREATE TABLE IF NOT EXISTS youtube_status_video_thumbnails (
   maxres_height int NOT NULL DEFAULT 0,
   FOREIGN KEY(id) REFERENCES youtube_status_video(id),
   CONSTRAINT youtube_status_video_thumbnails_pkey PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS youtube_status_video_statistics (
+  "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
+  id text NOT NULL, -- video id
+  comment_count int NOT NULL DEFAULT 0,
+  favorite_count int NOT NULL DEFAULT 0,
+  like_count int NOT NULL DEFAULT 0,
+  view_count int NOT NULL DEFAULT 0,
+  FOREIGN KEY(id) REFERENCES youtube_status_video(id),
+  CONSTRAINT youtube_status_video_statistics_pkey PRIMARY KEY (id)
 );
