@@ -274,10 +274,10 @@ def store_v_info(dsn='', data={}):
                     logger.debug(f"localized_description: {len(data['snippet']['localized']['description'].encode('utf-8'))} bytes")
                 except (AttributeError):
                     pass
-                logger.debug(f"customUrl: {data['snippet']['categoryId']}")
-                logger.debug(f"customUrl: {data['snippet']['channelId']}")
-                logger.debug(f"customUrl: {data['snippet']['defaultAudioLanguage']}")
-                logger.debug(f"customUrl: {data['snippet']['liveBroadcastContent']}")
+                logger.debug(f"categoryId: {data['snippet']['categoryId']}")
+                logger.debug(f"channelId: {data['snippet']['channelId']}")
+                logger.debug(f"defaultAudioLanguage: {data['snippet']['defaultAudioLanguage']}")
+                logger.debug(f"liveBroadcastContent: {data['snippet']['liveBroadcastContent']}")
 
                 # Insert to Database
 
