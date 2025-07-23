@@ -214,6 +214,8 @@ def store_c_info(dsn='', data={}):
                     },
                     **data['snippet'],
                 }
+
+                # 投げる内容をデバッグ
                 logger.debug(f"id: {data['id']}")
                 logger.debug(f"etag: {data['etag']}")
                 logger.debug(f"kind: {data['kind']}")
