@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS youtube_status_channel_thumbnails;
 DROP TABLE IF EXISTS youtube_status_channel_statistics;
 DROP TABLE IF EXISTS youtube_status_channel;
 -- channel
+-- https://developers.google.com/youtube/v3/docs/channels?hl=ja#properties
 CREATE TABLE IF NOT EXISTS youtube_status_channel (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- channel id
