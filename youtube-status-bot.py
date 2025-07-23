@@ -153,7 +153,6 @@ dsn = 'postgresql://{}:{}@{}:{}/{}'.format(
     os.environ.get('DATABASE_DSN_database', 'postgres'),
 )
 def store_v_info(dsn='', data={}):
-    return False
     try:
         import psycopg2
     except (ModuleNotFoundError):
@@ -230,6 +229,7 @@ def store_v_info(dsn='', data={}):
                     ))
                     conn.commit()
 
+                return False
     except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         logger.error(f'{sys.exc_info()}')
