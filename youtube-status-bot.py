@@ -193,6 +193,17 @@ def store_c_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
+                cur.execute(sql, (
+                    data['id'],
+                    data['etag'],
+                    data['kind'],
+                    data['snippet']['customUrl'],
+                    data['snippet']['publishedAt'],
+                    data['snippet']['title'],
+                    data['snippet']['description'],
+                    data['snippet']['localized.title'],
+                    data['snippet']['localized.description'],
+                ))
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         return False
