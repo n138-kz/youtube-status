@@ -170,6 +170,19 @@ def store_c_info(dsn='', data={}):
                     data['snippet']['localized'] = {}
                 if 'thumbnails' not in data['snippet']:
                     data['snippet']['thumbnails'] = {}
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    if item not in data['snippet']['thumbnails']:
+                        data['snippet']['thumbnails'][item] = {
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        }
                 data['snippet']['localized'] = {
                     **{
                         'title': None,
