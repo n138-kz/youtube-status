@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel (
   customUrl text,
   published_at double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   global_title text NOT NULL,
-  global_description text NOT NULL,
+  global_description text,
   localized_title text,
   localized_description text,
   CONSTRAINT youtube_status_channel_pkey PRIMARY KEY (id)
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS youtube_status_video (
   live_broadcast_content text NOT NULL,
   published_at double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   global_title text NOT NULL,
-  global_description text NOT NULL,
+  global_description text,
   localized_title text,
   localized_description text,
   FOREIGN KEY(channel_id) REFERENCES youtube_status_channel(id),
