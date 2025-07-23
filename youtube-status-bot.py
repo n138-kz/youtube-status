@@ -450,6 +450,8 @@ def store_c_info(dsn='', data={}):
                 except (AttributeError):
                     pass
                 logger.debug(f"customUrl: {data['snippet']['customUrl']}")
+
+                # Insert to Database
                 cur.execute(sql, (
                     data['id'],
                     data['etag'],
@@ -488,6 +490,8 @@ def store_c_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
+
+                # Insert to Database
                 cur.execute(sql, (
                     data['id'],
                     data['snippet']['thumbnails']['default']['url'],
@@ -522,6 +526,8 @@ def store_c_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
+
+                # Insert to Database
                 cur.execute(sql, (
                     data['id'],
                     bool(data['statistics']['hiddenSubscriberCount']),
