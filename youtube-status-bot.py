@@ -215,6 +215,21 @@ def store_v_info(dsn='', data={}):
                     **data['snippet'],
                 }
 
+                # 既存のデータを削除（UPDATEだとカラムが多くかなり大変なので）
+                for item in [
+                    'youtube_status_video_thumbnails',
+                    'youtube_status_video_statistics',
+                    'youtube_status_video',
+                ]:
+                    sql  = ''
+                    sql += f'DELETE FROM {item}'
+                    sql += ' WHERE id = %s'
+                    sql += ';'
+                    cur.execute(sql, (
+                        data['id'],
+                    ))
+                    conn.commit()
+
     except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         logger.error(f'{sys.exc_info()}')
