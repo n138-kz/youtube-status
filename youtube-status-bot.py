@@ -185,6 +185,8 @@ def store_c_info(dsn='', data={}):
                     },
                     **data['snippet'],
                 }
+
+                # 既存のデータを削除（UPDATEだとカラムが多くかなり大変なので）
                 for item in [
                     'youtube_status_channel_thumbnails',
                     'youtube_status_channel_statistics',
