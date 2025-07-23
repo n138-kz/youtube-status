@@ -259,6 +259,25 @@ def store_v_info(dsn='', data={}):
                 logger.debug(f"id: {data['id']}")
                 logger.debug(f"etag: {data['etag']}")
                 logger.debug(f"kind: {data['kind']}")
+                logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp()}")
+                logger.debug(f"global_title: {data['snippet']['title']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"global_description: {len(data['snippet']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
+                logger.debug(f"localized_title: {data['snippet']['localized']['title']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"localized_description: {len(data['snippet']['localized']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
+                logger.debug(f"customUrl: {data['snippet']['categoryId']}")
+                logger.debug(f"customUrl: {data['snippet']['channelId']}")
+                logger.debug(f"customUrl: {data['snippet']['defaultAudioLanguage']}")
+                logger.debug(f"customUrl: {data['snippet']['liveBroadcastContent']}")
 
                 # Insert to Database
 
