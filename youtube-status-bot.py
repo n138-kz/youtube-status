@@ -458,6 +458,7 @@ async def on_message(message):
 
     # 取得したデータをデータベースに保存
     logger.debug(store_c_info(dsn=dsn, data=youtube_channel))
+    logger.debug(store_v_info(dsn=dsn, data=youtube_video))
 
     # POST DATA
     title = '{}'.format('YouTube')
