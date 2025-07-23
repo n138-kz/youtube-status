@@ -465,7 +465,8 @@ async def on_message(message):
         with open('/log/custom/v_{}.json'.format(item_id), 'w') as f:
             json.dump(youtube_video, f, sort_keys=True)
 
-    logging_mesg = youtube_video
+    from copy import deepcopy
+    logging_mesg = deepcopy(youtube_video)
     del logging_mesg['snippet']['description']
     del logging_mesg['snippet']['localized']
 
@@ -481,7 +482,8 @@ async def on_message(message):
         with open('/log/custom/c_{}.json'.format(youtube_video['snippet']['channelId']), 'w') as f:
             json.dump(youtube_channel, f, sort_keys=True)
 
-    logging_mesg = youtube_channel
+    from copy import deepcopy
+    logging_mesg = deepcopy(youtube_channel)
     del logging_mesg['snippet']['description']
     del logging_mesg['snippet']['localized']
 
