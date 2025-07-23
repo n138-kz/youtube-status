@@ -273,6 +273,51 @@ def store_c_info(dsn='', data={}):
                     data['snippet']['localized']['description'],
                 ))
 
+                # youtube_status_channel.thumbnails
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_channel_thumbnails'
+                sql += ' ('
+                sql += 'id'
+                sql += ', default_url'
+                sql += ', default_width'
+                sql += ', default_height'
+                sql += ', medium_url'
+                sql += ', medium_width'
+                sql += ', medium_height'
+                sql += ', high_url'
+                sql += ', high_width'
+                sql += ', high_height'
+                sql += ', standard_url'
+                sql += ', standard_width'
+                sql += ', standard_height'
+                sql += ', maxres_url'
+                sql += ', maxres_width'
+                sql += ', maxres_height'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+                cur.execute(sql, (
+                    data['id'],
+                    data['snippet']['thumbnails']['default']['url'],
+                    int(data['snippet']['thumbnails']['default']['width']),
+                    int(data['snippet']['thumbnails']['default']['height']),
+                    data['snippet']['thumbnails']['medium']['url'],
+                    int(data['snippet']['thumbnails']['medium']['width']),
+                    int(data['snippet']['thumbnails']['medium']['height']),
+                    data['snippet']['thumbnails']['high']['url'],
+                    int(data['snippet']['thumbnails']['high']['width']),
+                    int(data['snippet']['thumbnails']['high']['height']),
+                    data['snippet']['thumbnails']['standard']['url'],
+                    int(data['snippet']['thumbnails']['standard']['width']),
+                    int(data['snippet']['thumbnails']['standard']['height']),
+                    data['snippet']['thumbnails']['maxres']['url'],
+                    int(data['snippet']['thumbnails']['maxres']['width']),
+                    int(data['snippet']['thumbnails']['maxres']['height']),
+                ))
+
                 # youtube_status_channel.statistics
                 sql  = ''
                 sql += 'INSERT INTO youtube_status_channel_statistics'
