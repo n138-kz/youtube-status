@@ -201,6 +201,7 @@ def store_c_info(dsn='', data={}):
                     ))
                     conn.commit()
 
+                # youtube_status_channel.core
                 sql  = ''
                 sql += 'INSERT INTO youtube_status_channel'
                 sql += ' ('
