@@ -20,6 +20,8 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel (
   localized_description text,
   CONSTRAINT youtube_status_channel_pkey PRIMARY KEY (id)
 );
+ALTER TABLE IF EXISTS public.youtube_status_channel
+    OWNER to webapp;
 CREATE TABLE IF NOT EXISTS youtube_status_channel_thumbnails (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- channel id
@@ -41,6 +43,8 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel_thumbnails (
   FOREIGN KEY(id) REFERENCES youtube_status_channel(id),
   CONSTRAINT youtube_status_channel_thumbnails_pkey PRIMARY KEY (id)
 );
+ALTER TABLE IF EXISTS public.youtube_status_channel_thumbnails
+    OWNER to webapp;
 CREATE TABLE IF NOT EXISTS youtube_status_channel_statistics (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- channel id
@@ -51,6 +55,8 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel_statistics (
   FOREIGN KEY(id) REFERENCES youtube_status_channel(id),
   CONSTRAINT youtube_status_channel_statistics_pkey PRIMARY KEY (id)
 );
+ALTER TABLE IF EXISTS public.youtube_status_channel_statistics
+    OWNER to webapp;
 -- video
 -- https://developers.google.com/youtube/v3/docs/videos?hl=ja#properties
 CREATE TABLE IF NOT EXISTS youtube_status_video (
