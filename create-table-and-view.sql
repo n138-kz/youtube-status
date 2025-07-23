@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel_statistics (
   CONSTRAINT youtube_status_channel_statistics_pkey PRIMARY KEY (id)
 );
 -- video
+-- https://developers.google.com/youtube/v3/docs/videos?hl=ja#properties
 CREATE TABLE IF NOT EXISTS youtube_status_video (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- video id
