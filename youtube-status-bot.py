@@ -300,6 +300,28 @@ def store_v_info(dsn='', data={}):
                     int(data['snippet']['thumbnails']['maxres']['height']),
                 ))
 
+                # youtube_status_video.statistics
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_video_statistics'
+                sql += ' ('
+                sql += 'id'
+                sql += ', comment_count'
+                sql += ', favorite_count'
+                sql += ', like_count'
+                sql += ', view_count'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
+                cur.execute(sql, (
+                    data['id'],
+                    int(data['statistics']['commentCount']),
+                    int(data['statistics']['favoriteCount']),
+                    int(data['statistics']['likeCount']),
+                    int(data['statistics']['viewCount']),
+                ))
                 return False
     except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
         logger.error(f'Error has occured in Database operation: {error}')
