@@ -555,9 +555,9 @@ async def on_message(message):
     del logging_mesg['snippet']['description']
     del logging_mesg['snippet']['localized']
 
-    logger.debug(logging_mesg)
-    logger.debug(json.dumps(logging_mesg, sort_keys=True))
-    logger.debug(math.trunc(datetime.datetime.fromisoformat(logging_mesg['snippet']['publishedAt']).timestamp()))
+    logger.debug(f'youtube_video: {logging_mesg}')
+    logger.debug(f'youtube_video: {json.dumps(logging_mesg, sort_keys=True)}')
+    logger.debug(f"youtube_video: {math.trunc(datetime.datetime.fromisoformat(logging_mesg['snippet']['publishedAt']).timestamp())}")
 
     # youtube-channel statics取得
     youtube_channel = getYoutubeChannels(youtube_video['snippet']['channelId'])
@@ -572,12 +572,12 @@ async def on_message(message):
     del logging_mesg['snippet']['description']
     del logging_mesg['snippet']['localized']
 
-    logger.debug(logging_mesg)
-    logger.debug(json.dumps(logging_mesg, sort_keys=True))
+    logger.debug(f'youtube_channel: {logging_mesg}')
+    logger.debug(f'youtube_channel: {json.dumps(logging_mesg, sort_keys=True)}')
 
     # 取得したデータをデータベースに保存
-    logger.debug(store_c_info(dsn=dsn, data=youtube_channel))
-    logger.debug(store_v_info(dsn=dsn, data=youtube_video))
+    logger.debug(f'store_c_info: {store_c_info(dsn=dsn, data=youtube_channel)}')
+    logger.debug(f'store_v_info: {store_v_info(dsn=dsn, data=youtube_video)}')
 
     # POST DATA
     title = '{}'.format('YouTube')
