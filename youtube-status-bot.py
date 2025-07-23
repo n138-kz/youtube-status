@@ -205,7 +205,6 @@ def store_v_info(dsn='', data={}):
                 }
                 data['snippet'] = {
                     **{
-                        'customUrl': None,
                         'publishedAt': None,
                         'title': None,
                         'description': None,
