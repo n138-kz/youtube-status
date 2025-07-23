@@ -347,12 +347,13 @@ async def on_message(message):
         with open('/log/custom/v_{}.json'.format(item_id), 'w') as f:
             json.dump(youtube_video, f, sort_keys=True)
 
-    del youtube_video['snippet']['description']
-    del youtube_video['snippet']['localized']
+    logging_mesg = youtube_video
+    del logging_mesg['snippet']['description']
+    del logging_mesg['snippet']['localized']
 
-    logger.debug(youtube_video)
-    logger.debug(json.dumps(youtube_video, sort_keys=True))
-    logger.debug(math.trunc(datetime.datetime.fromisoformat(youtube_video['snippet']['publishedAt']).timestamp()))
+    logger.debug(logging_mesg)
+    logger.debug(json.dumps(logging_mesg, sort_keys=True))
+    logger.debug(math.trunc(datetime.datetime.fromisoformat(logging_mesg['snippet']['publishedAt']).timestamp()))
 
     # youtube-channel statics取得
     youtube_channel = getYoutubeChannels(youtube_video['snippet']['channelId'])
@@ -362,11 +363,12 @@ async def on_message(message):
         with open('/log/custom/c_{}.json'.format(youtube_video['snippet']['channelId']), 'w') as f:
             json.dump(youtube_channel, f, sort_keys=True)
 
-    del youtube_channel['snippet']['description']
-    del youtube_channel['snippet']['localized']
+    logging_mesg = youtube_channel
+    del logging_mesg['snippet']['description']
+    del logging_mesg['snippet']['localized']
 
-    logger.debug(youtube_channel)
-    logger.debug(json.dumps(youtube_channel, sort_keys=True))
+    logger.debug(logging_mesg)
+    logger.debug(json.dumps(logging_mesg, sort_keys=True))
 
     # POST DATA
     title = '{}'.format('YouTube')
