@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel_statistics (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- channel id
   hidden_subscriber_count boolean NOT NULL DEFAULT false,
-  subscriber_count int NOT NULL DEFAULT 0,
-  video_count int NOT NULL DEFAULT 0,
-  view_count int NOT NULL DEFAULT 0,
+  subscriber_count int NOT NULL DEFAULT 0, -- need str to int
+  video_count int NOT NULL DEFAULT 0, -- need str to int
+  view_count int NOT NULL DEFAULT 0, -- need str to int
   FOREIGN KEY(id) REFERENCES youtube_status_channel(id),
   CONSTRAINT youtube_status_channel_statistics_pkey PRIMARY KEY (id)
 );
@@ -94,10 +94,10 @@ CREATE TABLE IF NOT EXISTS youtube_status_video_thumbnails (
 CREATE TABLE IF NOT EXISTS youtube_status_video_statistics (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- video id
-  comment_count int NOT NULL DEFAULT 0,
-  favorite_count int NOT NULL DEFAULT 0,
-  like_count int NOT NULL DEFAULT 0,
-  view_count int NOT NULL DEFAULT 0,
+  comment_count int NOT NULL DEFAULT 0, -- need str to int
+  favorite_count int NOT NULL DEFAULT 0, -- need str to int
+  like_count int NOT NULL DEFAULT 0, -- need str to int
+  view_count int NOT NULL DEFAULT 0, -- need str to int
   FOREIGN KEY(id) REFERENCES youtube_status_video(id),
   CONSTRAINT youtube_status_video_statistics_pkey PRIMARY KEY (id)
 );
