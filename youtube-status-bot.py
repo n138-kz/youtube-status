@@ -434,7 +434,6 @@ def store_c_info(dsn='', data={}):
                 logger.debug(f"id: {data['id']}")
                 logger.debug(f"etag: {data['etag']}")
                 logger.debug(f"kind: {data['kind']}")
-                logger.debug(f"customUrl: {data['snippet']['customUrl']}")
                 logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp()}")
                 logger.debug(f"global_title: {data['snippet']['title']}")
                 try:
@@ -450,6 +449,7 @@ def store_c_info(dsn='', data={}):
                     logger.debug(f"localized_description: {len(data['snippet']['localized']['description'].encode('utf-8'))} bytes")
                 except (AttributeError):
                     pass
+                logger.debug(f"customUrl: {data['snippet']['customUrl']}")
                 cur.execute(sql, (
                     data['id'],
                     data['etag'],
