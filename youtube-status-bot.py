@@ -280,6 +280,20 @@ def store_v_info(dsn='', data={}):
                 logger.debug(f"liveBroadcastContent: {data['snippet']['liveBroadcastContent']}")
 
                 # Insert to Database
+                cur.execute(sql, (
+                    data['id'],
+                    data['etag'],
+                    data['kind'],
+                    data['snippet']['categoryId'],
+                    data['snippet']['channelId'],
+                    data['snippet']['defaultAudioLanguage'],
+                    data['snippet']['liveBroadcastContent'],
+                    datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp(),
+                    data['snippet']['title'],
+                    data['snippet']['description'],
+                    data['snippet']['localized']['title'],
+                    data['snippet']['localized']['description'],
+                ))
 
                 # youtube_status_video.thumbnails
                 sql  = ''
