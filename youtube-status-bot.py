@@ -163,6 +163,28 @@ def store_c_info(dsn='', data={}):
     try:
         with psycopg2.connect(dsn) as conn:
             with conn.cursor() as cur:
+                # Keyチェック、なければNullにする
+                if 'snippet' not in data:
+                    data['snippet'] = {}
+                if 'localized' not in data['snippet']:
+                    data['snippet']['localized'] = {}
+                data['snippet']['localized'] = {
+                    **{
+                        'title': None,
+                        'description': None,
+                    },
+                    **data['snippet']['localized'],
+                }
+                data['snippet'] = {
+                    **{
+                        'customUrl': None,
+                        'publishedAt': None,
+                        'title': None,
+                        'description': None,
+                        'localized': None,
+                    },
+                    **data['snippet'],
+                }
                 for item in [
                     'youtube_status_channel_thumbnails',
                     'youtube_status_channel_statistics',
@@ -193,27 +215,6 @@ def store_c_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
-                if 'snippet' not in data:
-                    data['snippet'] = {}
-                if 'localized' not in data['snippet']:
-                    data['snippet']['localized'] = {}
-                data['snippet']['localized'] = {
-                    **{
-                        'title': None,
-                        'description': None,
-                    },
-                    **data['snippet']['localized'],
-                }
-                data['snippet'] = {
-                    **{
-                        'customUrl': None,
-                        'publishedAt': None,
-                        'title': None,
-                        'description': None,
-                        'localized': None,
-                    },
-                    **data['snippet'],
-                }
 
                 # 投げる内容をデバッグ
                 logger.debug(f"id: {data['id']}")
