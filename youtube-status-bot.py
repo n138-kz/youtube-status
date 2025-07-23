@@ -234,6 +234,8 @@ def store_c_info(dsn='', data={}):
                     data['snippet']['localized']['title'],
                     data['snippet']['localized']['description'],
                 ))
+
+                # youtube_status_channel.statistics
                 sql  = ''
                 sql += 'INSERT INTO youtube_status_channel_statistics'
                 sql += ' ('
