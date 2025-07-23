@@ -213,6 +213,7 @@ def store_v_info(dsn='', data={}):
                         'title': None,
                         'description': None,
                         'localized': None,
+                        'tags': None,
                     },
                     **data['snippet'],
                 }
@@ -248,10 +249,11 @@ def store_v_info(dsn='', data={}):
                 sql += ', global_description'
                 sql += ', localized_title'
                 sql += ', localized_description'
+                sql += ', tags'
                 sql += ')'
                 sql += ' VALUES'
                 sql += ' ('
-                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
 
@@ -278,6 +280,7 @@ def store_v_info(dsn='', data={}):
                 logger.debug(f"channelId: {data['snippet']['channelId']}")
                 logger.debug(f"defaultAudioLanguage: {data['snippet']['defaultAudioLanguage']}")
                 logger.debug(f"liveBroadcastContent: {data['snippet']['liveBroadcastContent']}")
+                logger.debug(f"tags: {json.dumps(data['snippet']['tags'])}")
 
                 # Insert to Database
                 cur.execute(sql, (
@@ -293,6 +296,7 @@ def store_v_info(dsn='', data={}):
                     data['snippet']['description'],
                     data['snippet']['localized']['title'],
                     data['snippet']['localized']['description'],
+                    data['snippet']['tags'],
                 ))
 
                 # youtube_status_video.thumbnails

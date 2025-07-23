@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS youtube_status_video (
   global_description text,
   localized_title text,
   localized_description text,
+  tags json NOT NULL DEFAULT '[]',
   FOREIGN KEY(channel_id) REFERENCES youtube_status_channel(id),
   CONSTRAINT youtube_status_video_pkey PRIMARY KEY (id)
 );
