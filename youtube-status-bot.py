@@ -168,6 +168,8 @@ def store_c_info(dsn='', data={}):
                     data['snippet'] = {}
                 if 'localized' not in data['snippet']:
                     data['snippet']['localized'] = {}
+                if 'thumbnails' not in data['snippet']:
+                    data['snippet']['thumbnails'] = {}
                 data['snippet']['localized'] = {
                     **{
                         'title': None,
