@@ -250,7 +250,7 @@ def store_c_info(dsn='', data={}):
                 sql += ';'
                 cur.execute(sql, (
                     data['id'],
-                    int(data['statistics']['hiddenSubscriberCount']),
+                    bool(data['statistics']['hiddenSubscriberCount']),
                     int(data['statistics']['subscriberCount']),
                     int(data['statistics']['videoCount']),
                     int(data['statistics']['viewCount']),
