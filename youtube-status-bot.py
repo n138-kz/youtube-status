@@ -193,7 +193,7 @@ def store_c_info(dsn='', data={}):
                     'youtube_status_channel',
                 ]:
                     sql  = ''
-                    sql += 'DELETE FROM youtube_status_channel'
+                    sql += f'DELETE FROM {item}'
                     sql += ' WHERE id = %s'
                     sql += ';'
                     cur.execute(sql, (
