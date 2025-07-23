@@ -296,7 +296,7 @@ def store_v_info(dsn='', data={}):
                     data['snippet']['description'],
                     data['snippet']['localized']['title'],
                     data['snippet']['localized']['description'],
-                    data['snippet']['tags'],
+                    json.dumps(data['snippet']['tags']),
                 ))
 
                 # youtube_status_video.thumbnails
