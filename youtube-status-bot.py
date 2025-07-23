@@ -183,6 +183,21 @@ def store_c_info(dsn='', data={}):
                             'width': 0,
                             'height': 0,
                         }
+                for item in [
+                    'default',
+                    'medium',
+                    'high',
+                    'standard',
+                    'maxres',
+                ]:
+                    data['snippet']['thumbnails'][item] = {
+                        **{
+                            'url': None,
+                            'width': 0,
+                            'height': 0,
+                        },
+                        **data['snippet']['thumbnails'][item],
+                    }
                 data['snippet']['localized'] = {
                     **{
                         'title': None,
