@@ -456,6 +456,7 @@ async def on_message(message):
     logger.debug(logging_mesg)
     logger.debug(json.dumps(logging_mesg, sort_keys=True))
 
+    logger.debug(store_c_info(dsn=dsn, data=youtube_channel))
     # POST DATA
     title = '{}'.format('YouTube')
     descr = '[{}]({})'.format(
