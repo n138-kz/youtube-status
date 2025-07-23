@@ -255,6 +255,11 @@ def store_v_info(dsn='', data={}):
                 sql += ')'
                 sql += ';'
 
+                # 投げる内容をデバッグ
+                logger.debug(f"id: {data['id']}")
+                logger.debug(f"etag: {data['etag']}")
+                logger.debug(f"kind: {data['kind']}")
+
                 # youtube_status_video.thumbnails
                 sql  = ''
                 sql += 'INSERT INTO youtube_status_video_thumbnails'
