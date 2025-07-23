@@ -218,6 +218,13 @@ def store_c_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
+                cur.execute(sql, (
+                    data['id'],
+                    int(data['statistics']['hiddenSubscriberCount']),
+                    int(data['statistics']['subscriberCount']),
+                    int(data['statistics']['videoCount']),
+                    int(data['statistics']['viewCount']),
+                ))
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         return False
