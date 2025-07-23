@@ -205,6 +205,10 @@ def store_v_info(dsn='', data={}):
                 }
                 data['snippet'] = {
                     **{
+                        'categoryId': None,
+                        'channelId': None,
+                        'defaultAudioLanguage': None,
+                        'liveBroadcastContent': None,
                         'publishedAt': None,
                         'title': None,
                         'description': None,
