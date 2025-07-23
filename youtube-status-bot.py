@@ -218,7 +218,7 @@ def store_c_info(dsn='', data={}):
                 logger.debug(f"etag: {data['etag']}")
                 logger.debug(f"kind: {data['kind']}")
                 logger.debug(f"customUrl: {data['snippet']['customUrl']}")
-                logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt'])}")
+                logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp()}")
                 logger.debug(f"global_title: {data['snippet']['title']}")
                 logger.debug(f"global_description: {data['snippet']['description']}")
                 logger.debug(f"localized_title: {data['snippet']['localized']['title']}")
@@ -228,7 +228,7 @@ def store_c_info(dsn='', data={}):
                     data['etag'],
                     data['kind'],
                     data['snippet']['customUrl'],
-                    datetime.datetime.fromisoformat(data['snippet']['publishedAt']),
+                    datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp(),
                     data['snippet']['title'],
                     data['snippet']['description'],
                     data['snippet']['localized']['title'],
