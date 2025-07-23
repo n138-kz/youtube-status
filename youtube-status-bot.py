@@ -250,6 +250,8 @@ def store_c_info(dsn='', data={}):
                 return True
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
+        logger.error(f'{sys.exc_info()}')
+        logger.error(f'{traceback.format_exc()}')
         return False
 
 intents = discord.Intents.default()
