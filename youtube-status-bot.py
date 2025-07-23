@@ -154,6 +154,8 @@ dsn = 'postgresql://{}:{}@{}:{}/{}'.format(
 )
 def store_v_info(dsn='', data={}):
     return False
+def store_c_info(dsn='', data={}):
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
