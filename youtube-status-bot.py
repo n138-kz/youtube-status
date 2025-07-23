@@ -219,7 +219,7 @@ def store_c_info(dsn='', data={}):
                     data['etag'],
                     data['kind'],
                     data['snippet']['customUrl'],
-                    data['snippet']['publishedAt'],
+                    datetime.datetime.fromisoformat(data['snippet']['publishedAt']),
                     data['snippet']['title'],
                     data['snippet']['description'],
                     data['snippet']['localized']['title'],
