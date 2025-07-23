@@ -145,6 +145,13 @@ def getYoutubeChannels(channel_id='', api_service_name='youtube', api_version='v
             continue
         return item
 
+dsn = 'postgresql://{}:{}@{}:{}/{}'.format(
+    os.environ.get('DATABASE_DSN_username', 'postgres'),
+    os.environ.get('DATABASE_DSN_password', 'postgres'),
+    os.environ.get('DATABASE_DSN_hostaddr', 'localhost'),
+    os.environ.get('DATABASE_DSN_portnum', 5432),
+    os.environ.get('DATABASE_DSN_database', 'postgres'),
+)
 intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
