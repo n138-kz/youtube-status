@@ -193,6 +193,10 @@ def store_c_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
+                if 'snippet' not in data:
+                    data['snippet'] = {}
+                if 'localized' not in data['snippet']:
+                    data['snippet']['localized'] = {}
                 cur.execute(sql, (
                     data['id'],
                     data['etag'],
