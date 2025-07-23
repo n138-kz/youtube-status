@@ -214,6 +214,15 @@ def store_c_info(dsn='', data={}):
                     },
                     **data['snippet'],
                 }
+                logger.debug(f"id: {data['id']}")
+                logger.debug(f"etag: {data['etag']}")
+                logger.debug(f"kind: {data['kind']}")
+                logger.debug(f"customUrl: {data['snippet']['customUrl']}")
+                logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt'])}")
+                logger.debug(f"global_title: {data['snippet']['title']}")
+                logger.debug(f"global_description: {data['snippet']['description']}")
+                logger.debug(f"localized_title: {data['snippet']['localized']['title']}")
+                logger.debug(f"localized_description: {data['snippet']['localized']['description']}")
                 cur.execute(sql, (
                     data['id'],
                     data['etag'],
