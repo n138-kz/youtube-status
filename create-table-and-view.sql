@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel_statistics (
   CONSTRAINT youtube_status_channel_statistics_pkey PRIMARY KEY (id)
 );
 -- video
+DROP TABLE IF EXISTS youtube_status_video_thumbnails;
 DROP TABLE IF EXISTS youtube_status_video;
 CREATE TABLE IF NOT EXISTS youtube_status_video (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
@@ -64,4 +65,25 @@ CREATE TABLE IF NOT EXISTS youtube_status_video (
   localized_description text,
   FOREIGN KEY(channel_id) REFERENCES youtube_status_channel(id),
   CONSTRAINT youtube_status_video_pkey PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS youtube_status_video_thumbnails (
+  "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
+  id text NOT NULL, -- video id
+  default_url text,
+  default_width int NOT NULL DEFAULT 0,
+  default_height int NOT NULL DEFAULT 0,
+  medium_url text,
+  medium_width int NOT NULL DEFAULT 0,
+  medium_height int NOT NULL DEFAULT 0,
+  high_url text,
+  high_width int NOT NULL DEFAULT 0,
+  high_height int NOT NULL DEFAULT 0,
+  standard_url text,
+  standard_width int NOT NULL DEFAULT 0,
+  standard_height int NOT NULL DEFAULT 0,
+  maxres_url text,
+  maxres_width int NOT NULL DEFAULT 0,
+  maxres_height int NOT NULL DEFAULT 0,
+  FOREIGN KEY(id) REFERENCES youtube_status_video(id),
+  CONSTRAINT youtube_status_video_thumbnails_pkey PRIMARY KEY (id)
 );
