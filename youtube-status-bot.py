@@ -163,6 +163,18 @@ def store_c_info(dsn='', data={}):
     try:
         with psycopg2.connect(dsn) as conn:
             with conn.cursor() as cur:
+                for item in [
+                    'youtube_status_channel_thumbnails',
+                    'youtube_status_channel_statistics',
+                    'youtube_status_channel',
+                ]:
+                    sql  = ''
+                    sql += 'DELETE FROM youtube_status_channel'
+                    sql += ' WHERE id = %s'
+                    sql += ';'
+                    cur.execute(sql, (
+                        data['id'],
+                    ))
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         return False
