@@ -175,6 +175,24 @@ def store_c_info(dsn='', data={}):
                     cur.execute(sql, (
                         data['id'],
                     ))
+                sql  = ''
+                sql += 'INSERT INTO youtube_status_channel'
+                sql += ' ('
+                sql += 'id'
+                sql += ', etag'
+                sql += ', kind'
+                sql += ', customUrl'
+                sql += ', published_at'
+                sql += ', global_title'
+                sql += ', global_description'
+                sql += ', localized_title'
+                sql += ', localized_description'
+                sql += ')'
+                sql += ' VALUES'
+                sql += ' ('
+                sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s'
+                sql += ')'
+                sql += ';'
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         return False
