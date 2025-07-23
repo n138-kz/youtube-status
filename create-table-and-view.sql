@@ -1,7 +1,10 @@
--- channel
+-- drop
+DROP TABLE IF EXISTS youtube_status_video_thumbnails;
+DROP TABLE IF EXISTS youtube_status_video;
 DROP TABLE IF EXISTS youtube_status_channel_thumbnails;
 DROP TABLE IF EXISTS youtube_status_channel_statistics;
 DROP TABLE IF EXISTS youtube_status_channel;
+-- channel
 CREATE TABLE IF NOT EXISTS youtube_status_channel (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- channel id
@@ -47,8 +50,6 @@ CREATE TABLE IF NOT EXISTS youtube_status_channel_statistics (
   CONSTRAINT youtube_status_channel_statistics_pkey PRIMARY KEY (id)
 );
 -- video
-DROP TABLE IF EXISTS youtube_status_video_thumbnails;
-DROP TABLE IF EXISTS youtube_status_video;
 CREATE TABLE IF NOT EXISTS youtube_status_video (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   id text NOT NULL, -- video id
