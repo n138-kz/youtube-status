@@ -257,7 +257,7 @@ def store_c_info(dsn='', data={}):
                 ))
                 conn.commit()
                 return True
-    except (Exception, psycopg2.errors.DatatypeMismatch) as error:
+    except (Exception, psycopg2.errors.DatatypeMismatch, psycopg2.errors.NotNullViolation) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         logger.error(f'{sys.exc_info()}')
         logger.error(f'{traceback.format_exc()}')
