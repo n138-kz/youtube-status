@@ -152,6 +152,8 @@ dsn = 'postgresql://{}:{}@{}:{}/{}'.format(
     os.environ.get('DATABASE_DSN_portnum', 5432),
     os.environ.get('DATABASE_DSN_database', 'postgres'),
 )
+def store_v_info(dsn='', data={}):
+    return False
 intents = discord.Intents.default()
 intents.message_content = True
 intents.reactions = True
