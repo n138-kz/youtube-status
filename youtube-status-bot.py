@@ -225,6 +225,8 @@ def store_c_info(dsn='', data={}):
                     int(data['statistics']['videoCount']),
                     int(data['statistics']['viewCount']),
                 ))
+                conn.commit()
+                return True
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         return False
