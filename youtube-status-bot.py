@@ -161,6 +161,7 @@ def store_c_info(dsn='', data={}):
         return None
 
     try:
+        with psycopg2.connect(dsn) as conn:
     except (Exception) as error:
         logger.error(f'Error has occured in Database operation: {error}')
         return False
