@@ -258,9 +258,19 @@ def store_c_info(dsn='', data={}):
                 logger.debug(f"customUrl: {data['snippet']['customUrl']}")
                 logger.debug(f"published_at: {datetime.datetime.fromisoformat(data['snippet']['publishedAt']).timestamp()}")
                 logger.debug(f"global_title: {data['snippet']['title']}")
-                logger.debug(f"global_description: {data['snippet']['description']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"global_description: {len(data['snippet']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
                 logger.debug(f"localized_title: {data['snippet']['localized']['title']}")
-                logger.debug(f"localized_description: {data['snippet']['localized']['description']}")
+                try:
+                    # description は長いので文字バイト数だけ表示
+                    # None(Null)対策
+                    logger.debug(f"localized_description: {len(data['snippet']['localized']['description'].encode('utf-8'))} bytes")
+                except (AttributeError):
+                    pass
                 cur.execute(sql, (
                     data['id'],
                     data['etag'],
