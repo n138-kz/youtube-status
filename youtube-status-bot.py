@@ -260,6 +260,8 @@ def store_v_info(dsn='', data={}):
                 logger.debug(f"etag: {data['etag']}")
                 logger.debug(f"kind: {data['kind']}")
 
+                # Insert to Database
+
                 # youtube_status_video.thumbnails
                 sql  = ''
                 sql += 'INSERT INTO youtube_status_video_thumbnails'
@@ -286,6 +288,8 @@ def store_v_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
+
+                # Insert to Database
                 cur.execute(sql, (
                     data['id'],
                     data['snippet']['thumbnails']['default']['url'],
@@ -320,6 +324,8 @@ def store_v_info(dsn='', data={}):
                 sql += '%s, %s, %s, %s, %s'
                 sql += ')'
                 sql += ';'
+
+                # Insert to Database
                 cur.execute(sql, (
                     data['id'],
                     int(data['statistics']['commentCount']),
