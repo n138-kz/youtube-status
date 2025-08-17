@@ -99,7 +99,7 @@ for list in statistics_icontext['default']:
     statistics_activate[list[0]]=os.environ.get('statistics_activate_'+list[0], True)
     logger.debug('statistics_activate_{}: {}'.format(
         list[0],
-        statistics_activate[list[0]],
+        not(not(statistics_activate[list[0]])),
     ))
 
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
