@@ -854,36 +854,42 @@ async def on_message(message):
     except discord.errors.PrivilegedIntentsRequired:
         logger.error(traceback.format_exc())
     embed.set_image(url=image)
-    embed.add_field(
-        inline=True,
-        name=statistics_icontext['v_commentCount'],
-        value=format(int(youtube_video['statistics']['commentCount']), ','),
-    )
-    embed.add_field(
-        inline=True,
-        name=statistics_icontext['v_likeCount'],
-        value=format(int(youtube_video['statistics']['likeCount']), ','),
-    )
-    embed.add_field(
-        inline=True,
-        name=statistics_icontext['v_viewCount'],
-        value=format(int(youtube_video['statistics']['viewCount']), ','),
-    )
-    embed.add_field(
-        inline=True,
-        name=statistics_icontext['c_subscriberCount'],
-        value=format(int(youtube_channel['statistics']['subscriberCount']), ','),
-    )
-    embed.add_field(
-        inline=True,
-        name=statistics_icontext['c_videoCount'],
-        value=format(int(youtube_channel['statistics']['videoCount']), ','),
-    )
-    embed.add_field(
-        inline=True,
-        name=statistics_icontext['c_viewCount'],
-        value=format(int(youtube_channel['statistics']['viewCount']), ','),
-    )
+    if(statistics_activate['v_commentCount']):
+        embed.add_field(
+            inline=True,
+            name=statistics_icontext['v_commentCount'],
+            value=format(int(youtube_video['statistics']['commentCount']), ','),
+        )
+    if(statistics_activate['v_likeCount']):
+        embed.add_field(
+            inline=True,
+            name=statistics_icontext['v_likeCount'],
+            value=format(int(youtube_video['statistics']['likeCount']), ','),
+        )
+    if(statistics_activate['v_viewCount']):
+        embed.add_field(
+            inline=True,
+            name=statistics_icontext['v_viewCount'],
+            value=format(int(youtube_video['statistics']['viewCount']), ','),
+        )
+    if(statistics_activate['c_subscriberCount']):
+        embed.add_field(
+            inline=True,
+            name=statistics_icontext['c_subscriberCount'],
+            value=format(int(youtube_channel['statistics']['subscriberCount']), ','),
+        )
+    if(statistics_activate['c_videoCount']):
+        embed.add_field(
+            inline=True,
+            name=statistics_icontext['c_videoCount'],
+            value=format(int(youtube_channel['statistics']['videoCount']), ','),
+        )
+    if(statistics_activate['c_viewCount']):
+        embed.add_field(
+            inline=True,
+            name=statistics_icontext['c_viewCount'],
+            value=format(int(youtube_channel['statistics']['viewCount']), ','),
+        )
     logger.debug( await message.reply(embed=embed) )
 
 # botを起動
