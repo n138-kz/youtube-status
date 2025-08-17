@@ -79,8 +79,8 @@ if len(TOKEN_YOUTUBE) > 0:
 else:
     raise ValueError('Require the token.youtube')
 
-ICONTEXT_statistics={}
-ICONTEXT_statistics['default']=[
+statistics_icontext={}
+statistics_icontext['default']=[
     ['v_commentCount', ':speech_balloon:'],
     ['v_likeCount', ':thumbsup:'],
     ['v_viewCount', ':eyes:'],
@@ -88,10 +88,10 @@ ICONTEXT_statistics['default']=[
     ['c_videoCount', ':video_camera:'],
     ['c_viewCount', ':eyes:'],
 ]
-for list in ICONTEXT_statistics['default']:
-    ICONTEXT_statistics[list[0]]=os.environ['ICONTEXT_statistics_'+list[0]]
-    if len(ICONTEXT_statistics[list[0]]) == 0:
-        ICONTEXT_statistics[list[0]]=list[1]
+for list in statistics_icontext['default']:
+    statistics_icontext[list[0]]=os.environ['statistics_icontext_'+list[0]]
+    if len(statistics_icontext[list[0]]) == 0:
+        statistics_icontext[list[0]]=list[1]
 
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
@@ -847,32 +847,32 @@ async def on_message(message):
     embed.set_image(url=image)
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['v_commentCount'],
+        name=statistics_icontext['v_commentCount'],
         value=format(int(youtube_video['statistics']['commentCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['v_likeCount'],
+        name=statistics_icontext['v_likeCount'],
         value=format(int(youtube_video['statistics']['likeCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['v_viewCount'],
+        name=statistics_icontext['v_viewCount'],
         value=format(int(youtube_video['statistics']['viewCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['c_subscriberCount'],
+        name=statistics_icontext['c_subscriberCount'],
         value=format(int(youtube_channel['statistics']['subscriberCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['c_videoCount'],
+        name=statistics_icontext['c_videoCount'],
         value=format(int(youtube_channel['statistics']['videoCount']), ','),
     )
     embed.add_field(
         inline=True,
-        name=ICONTEXT_statistics['c_viewCount'],
+        name=statistics_icontext['c_viewCount'],
         value=format(int(youtube_channel['statistics']['viewCount']), ','),
     )
     logger.debug( await message.reply(embed=embed) )
