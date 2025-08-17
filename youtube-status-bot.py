@@ -97,6 +97,7 @@ for list in statistics_icontext['default']:
 statistics_activate={}
 for list in statistics_icontext['default']:
     statistics_activate[list[0]]=os.environ.get('statistics_activate_'+list[0], True)
+    statistics_activate[list[0]]=not(not(statistics_activate[list[0]]))
     logger.debug('statistics_activate_{}: {}'.format(
         list[0],
         not(not(statistics_activate[list[0]])),
