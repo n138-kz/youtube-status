@@ -90,6 +90,17 @@ statistics_icontext['default']=[
 ]
 for list in statistics_icontext['default']:
     statistics_icontext[list[0]]=os.environ.get('statistics_icontext_'+list[0], list[1])
+statistics_activate={}
+statistics_activate['default']=[
+    ['v_commentCount', True],
+    ['v_likeCount', True],
+    ['v_viewCount', True],
+    ['c_subscriberCount', True],
+    ['c_videoCount', True],
+    ['c_viewCount', True],
+]
+for list in statistics_activate['default']:
+    statistics_activate[list[0]]=os.environ.get('statistics_activate_'+list[0], list[1])
 
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
