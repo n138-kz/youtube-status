@@ -89,9 +89,7 @@ statistics_icontext['default']=[
     ['c_viewCount', ':eyes:'],
 ]
 for list in statistics_icontext['default']:
-    statistics_icontext[list[0]]=os.environ['statistics_icontext_'+list[0]]
-    if len(statistics_icontext[list[0]]) == 0:
-        statistics_icontext[list[0]]=list[1]
+    statistics_icontext[list[0]]=os.environ.get('statistics_icontext_'+list[0], list[1])
 
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
