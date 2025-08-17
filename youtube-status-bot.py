@@ -90,9 +90,18 @@ statistics_icontext['default']=[
 ]
 for list in statistics_icontext['default']:
     statistics_icontext[list[0]]=os.environ.get('statistics_icontext_'+list[0], list[1])
+    logger.debug('statistics_icontext_{}: {}'.format(
+        list[0],
+        statistics_icontext[list[0]],
+    ))
 statistics_activate={}
 for list in statistics_icontext['default']:
     statistics_activate[list[0]]=os.environ.get('statistics_activate_'+list[0], True)
+    statistics_activate[list[0]]=not(not(statistics_activate[list[0]]))
+    logger.debug('statistics_activate_{}: {}'.format(
+        list[0],
+        statistics_activate[list[0]],
+    ))
 
 def getYoutubeItems(video_id='', api_service_name='youtube', api_version='v3'):
     """
@@ -893,6 +902,6 @@ def main():
         logger.error(traceback.format_exc())
         sys.exit(1)
 
-logger.info(__name__)
+logger.debug(__name__)
 if __name__ == '__main__':
     main()
