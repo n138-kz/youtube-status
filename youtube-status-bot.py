@@ -902,6 +902,6 @@ def main():
         logger.error(traceback.format_exc())
         sys.exit(1)
 
-logger.info(__name__)
+logger.debug(__name__)
 if __name__ == '__main__':
     main()
